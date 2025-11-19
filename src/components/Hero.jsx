@@ -41,7 +41,7 @@ const Hero = () => (
             <Icon name="people" />
             Join Community
           </a>
-          <a className="ghost" href="/blog">
+          <a className="ghost" href="https://blog.syncrade.com" target="_blank" rel="noopener noreferrer">
             <Icon name="book" />
             Read the Blog
           </a>

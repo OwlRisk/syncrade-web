@@ -1,11 +1,12 @@
 import { useEffect } from 'react';
+import { Routes, Route } from 'react-router-dom';
 import './App.css';
 import Header from './components/Header';
-import Hero from './components/Hero';
-import Features from './components/Features';
-import TelegramFirst from './components/TelegramFirst';
-import QuickLinks from './components/QuickLinks';
 import Footer from './components/Footer';
+import Home from './pages/Home';
+import TermsOfService from './pages/Legal/TermsOfService';
+import PrivacyPolicy from './pages/Legal/PrivacyPolicy';
+import Disclaimer from './pages/Legal/Disclaimer';
 
 function App() {
   useEffect(() => {
@@ -41,10 +42,12 @@ function App() {
       <div className="grid-overlay" aria-hidden="true"></div>
       <Header />
       <main>
-        <Hero />
-        <Features />
-        <TelegramFirst />
-        <QuickLinks />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/terms" element={<TermsOfService />} />
+          <Route path="/privacy" element={<PrivacyPolicy />} />
+          <Route path="/disclaimer" element={<Disclaimer />} />
+        </Routes>
       </main>
       <Footer />
     </>

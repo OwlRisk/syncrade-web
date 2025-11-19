@@ -1,13 +1,14 @@
+import { Link } from 'react-router-dom';
 import Icon from './Icon';
 
 const Header = () => (
   <header>
     <div className="container nav">
       <div className="brand">
-        <div className="logo" aria-hidden="true"></div>
-        <a href="#" aria-label="Syncrade home">
+        <Link to="/" aria-label="Syncrade home" className="brand-link">
+          <div className="logo" aria-hidden="true"></div>
           Syncrade
-        </a>
+        </Link>
       </div>
       <nav className="nav-links" aria-label="Primary">
         <a href="#bot">Telegram Bot</a>
@@ -15,7 +16,7 @@ const Header = () => (
         <a href="#education">Education</a>
         <a href="#monitoring">Monitoring</a>
         <a href="#ratings">Ratings</a>
-        <a href="/blog">Blog</a>
+        <a href="https://blog.syncrade.com" target="_blank" rel="noopener noreferrer">Blog</a>
         <a href="https://t.me/syncrade" target="_blank" rel="noopener noreferrer">Community</a>
       </nav>
       <a className="cta" href="https://t.me/syncradebot" target="_blank" rel="noopener noreferrer" aria-label="Launch Syncrade Telegram Bot">

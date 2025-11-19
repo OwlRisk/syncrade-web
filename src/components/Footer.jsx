@@ -41,9 +41,9 @@ const Footer = () => {
 
         <div className="f-col">
           <h4>Legal</h4>
-          <a href="#" aria-disabled="true">Terms</a>
-          <a href="#" aria-disabled="true">Privacy</a>
-          <a href="#" aria-disabled="true">Cookies</a>
+          <a href="/terms">Terms</a>
+          <a href="/privacy">Privacy</a>
+          <a href="/disclaimer">Cookies</a>
         </div>
       </div>
 
