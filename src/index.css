@@ -249,7 +249,7 @@
       display: grid;
       grid-template-columns: 1fr 1fr 1fr 1fr;
       gap: 16px;
-      margin: 44px 0 18px;
+      margin: 44px 20px 18px;
     }
     .card {
       border: 1px solid var(--line);
