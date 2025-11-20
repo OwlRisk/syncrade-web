@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 const Footer = () => {
   useEffect(() => {
@@ -41,15 +42,15 @@ const Footer = () => {
 
         <div className="f-col">
           <h4>Legal</h4>
-          <a href="/terms">Terms</a>
-          <a href="/privacy">Privacy</a>
-          <a href="/disclaimer">Cookies</a>
+          <Link to="/terms">Terms</Link>
+          <Link to="/privacy">Privacy</Link>
+          <Link to="/disclaimer">Disclaimer</Link>
         </div>
       </div>
 
       <div className="container" style={{ marginTop: '18px', color: 'var(--muted)', fontSize: '12.5px' }}>
         <p style={{ margin: '0' }}>
-          Risk disclaimer: Trading digital assets involves significant risk and can result in the loss of your capital. Nothing here is financial advice. Syncrade does not accept deposits; support is available via Telegram Stars only.
+          Risk disclaimer: Trading digital assets involves significant risk and can result of your capital. Nothing here is financial advice. Syncrade does not accept deposits; support is available via Telegram Stars only.
         </p>
         <p style={{ margin: '8px 0 0' }}>© <span id="year"></span> Syncrade. All rights reserved.</p>
       </div>
