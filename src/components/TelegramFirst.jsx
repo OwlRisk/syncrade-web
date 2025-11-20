@@ -1,7 +1,7 @@
 import Icon from './Icon';
 
 const TelegramFirst = () => (
-  <section>
+  <section id="bot">
     <div className="container stack">
       <div className="card">
         <div className="section-title">

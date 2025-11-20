@@ -362,3 +362,11 @@
 
     /* Focus visibility */
     :focus-visible { outline: none; box-shadow: var(--ring); border-radius: 10px; }
+
+    #signals,
+    #education,
+    #monitoring,
+    #ratings,
+    #bot {
+      scroll-margin-top: 64px;
+    }
