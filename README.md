@@ -196,6 +196,70 @@ Not a Web3 tool site.
 
 ---
 
+## VII. Authority Protocol (Why Syncrade Can Judge)
+
+You have defined how to **look** trustworthy.
+Now you must freeze why the system has the right to **judge**.
+
+Authority in Syncrade is not aesthetic; it is sourced.
+
+| Authority Type | Source |
+|----------------|--------|
+| Data Authority | On-chain observable data |
+| Behavioral Authority | Long-window behavior modeling |
+| System Authority | Deterministic pipeline + replayability |
+
+Constitution-level definition:
+
+**Syncrade judgments are not opinions.**  
+**They are deterministic inferences from reproducible behavioral systems.**
+
+---
+
+## VIII. Silence Interaction Law
+
+Silence is not only visual. It is interactive behavior.
+
+Forbidden:
+
+| Forbidden | Reason |
+|----------|--------|
+| Toasts | Emotional noise |
+| Success popups | SaaS feedback |
+| Progress bars | Gamification |
+| Loading spinners | Psychological stimulation |
+| Animated placeholders | Distracts judgment |
+
+Replace with:
+
+| Allowed | Meaning |
+|--------|---------|
+| Static pending states | System thinking |
+| Time-stamped logs | Deterministic execution |
+| No celebration | Neutral authority |
+
+You are not calm because you look calm.  
+You are calm because you behave like a calm system.
+
+---
+
+## IX. Determinism & Replay Law (Frozen)
+
+Syncrade is a judgment engine. Therefore, every output must be replayable.
+
+| Principle | Meaning |
+|----------|---------|
+| Every judgment has an ID | Can be replayed |
+| Every result has a source window | Time-bound |
+| Every inference can be reproduced | No hallucination |
+| No hidden randomness | System > AI |
+
+Frozen clause:
+
+**If a judgment cannot be replayed, it cannot be trusted.**
+
+---
+
 ## Tech Stack
 
 - **React 19.2.0** + **React Router DOM 7.9.6**
