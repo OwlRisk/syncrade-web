@@ -443,6 +443,180 @@ Frozen clause:
 
 ---
 
+# Syncrade Intelligence Object Spec v1
+
+**(Canonical Judgment Object Definition)**
+
+This document defines what an "intelligence output" is allowed to be inside Syncrade.  
+Anything that does not conform to this spec is not considered a judgment.
+
+⸻
+
+## I. Core Definition
+
+Intelligence Object = A deterministic, replayable, explainable behavioral inference unit.
+
+It is not:
+- a chat reply
+- a prediction
+- a recommendation
+- a signal spam
+- a "nice summary"
+
+It is:
+
+**A time-bounded behavioral inference generated from reproducible system pipelines.**
+
+⸻
+
+## II. Canonical Object Schema
+
+Every intelligence object must be representable as the following structure:
+
+```
+IntelligenceObject := {
+    id: UUID,
+    type: ENUM,                     // SIGNAL | INSIGHT | OBSERVATION | RISK
+    subject: Asset | Wallet | MarketSegment,
+    window: TimeWindow,             // e.g. last 7d, last 30d
+    inference: InferenceStatement,
+    confidence: ConfidenceScore,    // 0.0 - 1.0
+    reasoning: ReasoningChain[],
+    evidence: EvidencePointer[],
+    generated_at: Timestamp,
+    expires_at: Timestamp,
+    replay_key: ReplaySignature
+}
+```
+
+**If any field is missing → object is invalid.**
+
+⸻
+
+## III. InferenceStatement (Most Important)
+
+All judgments must be expressed in the following canonical form:
+
+**IF <observable condition> CONTINUES,  
+THEN <behavioral consequence> becomes statistically more likely.**
+
+Not:
+- "You should…"
+- "We suggest…"
+- "This will go up"
+- "Good opportunity"
+
+Only:
+
+**Conditional behavioral inference.**
+
+⸻
+
+## IV. Reasoning Chain
+
+Every object must contain explicit reasoning bullets:
+
+```
+ReasoningChain := {
+    dimension: "flow" | "behavior" | "structure" | "volatility" | "risk",
+    observation: string,
+    direction: +1 | -1 | 0
+}
+```
+
+This ensures explainability & auditability.
+
+⸻
+
+## V. Evidence Pointers (No hallucination)
+
+```
+EvidencePointer := {
+    source: "onchain" | "derived" | "model",
+    metric: string,
+    window: TimeWindow,
+    value: number | range,
+    reference_id: string
+}
+```
+
+**LLM is never allowed to fabricate EvidencePointer.**
+
+⸻
+
+## VI. Replay Law
+
+Each object must include:
+
+```
+replay_key = hash(
+    subject + window + pipeline_version + evidence_hash
+)
+```
+
+→ This guarantees deterministic regeneration.
+
+**If an object cannot be replayed identically, it is not a Syncrade intelligence.**
+
+⸻
+
+## VII. LLM Usage Boundary (Frozen)
+
+LLM is only allowed to:
+- paraphrase inference wording
+- generate natural language reasoning explanation
+- convert structured inference to readable form
+
+LLM is not allowed to:
+- generate evidence
+- choose window
+- decide subject
+- assign confidence
+- emit object without validator approval
+
+⸻
+
+## VIII. Legal & Compliance Boundary
+
+All objects must satisfy:
+
+| Forbidden | Reason |
+|-----------|--------|
+| Entry/Exit price | Execution semantics |
+| Buy / Sell wording | Financial advice |
+| Certainty wording | Future guarantee |
+| Direct instruction | Advisor classification risk |
+
+**Only conditional probabilistic language is allowed.**
+
+⸻
+
+## IX. Lifecycle
+
+**Generated → Validated → Published → Expires → Archived → Replayable**
+
+Expired objects are not deleted — they become historical behavioral memory.
+
+⸻
+
+## X. Canonical Types
+
+| Type | Meaning |
+|------|---------|
+| OBSERVATION | Raw behavior fact |
+| SIGNAL | Rare proactive inference |
+| INSIGHT | Stable multi-window behavior shift |
+| RISK | Structural risk detection |
+
+⸻
+
+## XI. Constitutional Clause
+
+**If an output cannot be replayed, explained, and audited,  
+it is not intelligence — it is noise.**
+
+---
+
 ## Tech Stack
 
 - **React 19.2.0** + **React Router DOM 7.9.6**
