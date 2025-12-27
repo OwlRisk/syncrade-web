@@ -1218,6 +1218,15 @@ These specs freeze how Syncrade behaves as a **system terminal**, so implementat
 - **Failure & Feedback Protocol v1**: `docs/failure-feedback-protocol-v1.md`
 - **Intelligence Object Schema v1 (Minimal + Extensible)**: `docs/intelligence-object-schema-v1.md`
 - **Supported Sources Declaration v1**: `docs/supported-sources-v1.md`
+- **Security & Abuse Protocol v1**: `docs/security-abuse-protocol-v1.md`
+- **Caching & Determinism Spec v1**: `docs/caching-determinism-spec-v1.md`
+- **Window & Subject Resolution Rules v1**: `docs/window-subject-resolution-rules-v1.md`
+- **SLO / Quality Gates v1**: `docs/slo-quality-gates-v1.md`
+- **Versioning & Migration Rules v1**: `docs/versioning-migration-rules-v1.md`
+- **Minimal Backend Architecture v1**: `docs/minimal-backend-architecture-v1.md`
+- **QueryIntent Schema v1**: `docs/query-intent-schema-v1.md`
+- **RenderBlocks Schema v1**: `docs/render-blocks-schema-v1.md`
+- **Tool Registry / Data Domain Map v1**: `docs/tool-registry-v1.md`
 - **API Contract v1**: `docs/api-contract-v1.md`
 - **Error Codes Dictionary v1**: `docs/error-codes-v1.md`
 - **Observability & Audit Log Spec v1**: `docs/observability-spec-v1.md`

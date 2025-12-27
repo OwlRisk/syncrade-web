@@ -60,7 +60,7 @@ Collapsible is allowed, but default must be visible.
 
 If any of the following is true:
 
-- `confidence < 0.4`, or
+- `uncertainty > 0.6`, or
 - `data_quality = LOW` (or equivalent deterministic flag), or
 - evidence is partial / missing windows
 

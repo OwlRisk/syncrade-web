@@ -24,6 +24,7 @@ Failure codes must be enumerable and stat-trackable.
 | NO_DATA | DATA_SOURCE | no data for window/subject | 404 |
 | PARTIAL_DATA | DATA_SOURCE | incomplete data; degraded output | 206 |
 | RATE_LIMITED | DATA_SOURCE | upstream or system rate limited | 429 |
+| RESOURCE_LIMIT | SYSTEM | request exceeds system resource caps | 429 |
 | INTERNAL_ERROR | SYSTEM | unexpected internal failure | 500 |
 
 Rule: UI copy must not show “Error/Invalid/Not found” even if HTTP status is non-200.

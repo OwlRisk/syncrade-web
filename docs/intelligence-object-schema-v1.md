@@ -28,7 +28,10 @@ IntelligenceObjectV1 := {
 
   model,                  // { pipeline_version, rule_version?, scoring_version?, params_hash? }
   inference,              // structured (no free-text-only judgments)
-  confidence,             // numeric 0..1 (deterministic output, not LLM “confidence”)
+  uncertainty,            // numeric 0..1 (deterministic system uncertainty; not LLM “confidence”)
+  uncertainty_method,     // ENUM (frozen), see below
+  confidence?,            // derived only (optional), see below
+  confidence_method?,     // ENUM (frozen), see below
 
   evidence,               // Evidence[] (no evidence => no object)
   data_timestamp,         // timestamp of dataset snapshot / cutoff
@@ -157,8 +160,50 @@ Optional fields may exist for UI projection or convenience (must not affect mean
 
 - `explanation` (rendered text projection only; must not add facts)
 - `provenance` (expanded provenance fields)
-- `uncertainty` / `data_quality` (deterministic flags only)
+- `data_quality` (deterministic flags only)
 - `source_trace` (expandable trace blob/pointers)
+
+⸻
+
+## 5.1 Uncertainty / Confidence Semantics (Frozen)
+
+v1 has one primary axis: **uncertainty**.
+
+- `uncertainty` is deterministic system uncertainty (0..1).
+- `confidence` is **derived** only (not authored) and must not be set by LLM.
+
+### Frozen formula
+
+If `confidence` is present:
+
+```
+confidence = 1 - uncertainty
+```
+
+### Method enums (no free text)
+
+`uncertainty_method` must be one of:
+
+- `RULE_CALIBRATED`
+- `DATA_QUALITY_GATED`
+- `STATISTICAL_CALIBRATION`
+
+If `confidence` is exposed, `confidence_method` must be:
+
+- `ONE_MINUS_UNCERTAINTY`
+
+⸻
+
+## 5.2 SIGNAL Legality Requirements (Frozen)
+
+If `type = SIGNAL`, the object must satisfy:
+
+- inference must be **IF–THEN conditional** (no prediction language)
+- `expires_at` is required (already mandatory in v1)
+- `invalidations[]` must exist (reasons that would invalidate the signal)
+- must pass an evidence minimum gate (deterministic; otherwise degrade to OBSERVATION)
+
+`invalidations[]` is allowed as an optional field, but becomes mandatory for SIGNAL.
 
 ⸻
 

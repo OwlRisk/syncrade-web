@@ -31,6 +31,7 @@ Rules:
 
 - `objects[]` must pass `io-validator`
 - `failures[]` must pass `failure-validator`
+- `objects[]` must include replay inputs sufficient to reproduce (`window`, `dataset_snapshot`, versions, `replay_key`)
 
 ⸻
 
@@ -69,7 +70,7 @@ Rule: Render output must not add facts beyond object fields.
 }
 ```
 
-Rule: same replay inputs must return identical objects.
+Hard rule: `/replay/:replay_key` must return the **same objects byte-for-byte** (canonical JSON) for the same key.
 
 ⸻
 

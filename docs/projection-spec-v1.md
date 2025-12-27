@@ -41,6 +41,7 @@ Every object projection must render sections in this exact order:
 4) **Window / Expiry** (`window.start`, `window.end`, `expires_at`)  
 5) **Provenance** (`pipeline_version`, `rule_version`, `scoring_version`, `data_timestamp`)  
 6) **Replay** (`judgment_id`, `replay_hash` / `replay_key`, replay parameters)
+7) **Trace** (`trace_id`)
 
 **UI must not move “Evidence” below “Conclusion”, and must not hide “Window/Expiry/Provenance/Replay”.**
 
@@ -55,6 +56,7 @@ The following must exist in the projection (collapsible is allowed, but **must e
 - `pipeline_version` and/or `rule_version` (if both exist, show both)
 - `replay_hash` / `replay_key`
 - stable `id` (copyable)
+- `trace_id` (per request; copyable)
 
 **Collapsing rule:** `Replay` and `Source Trace` may be collapsed, but the user must see that they exist.
 
@@ -107,6 +109,9 @@ Provenance
 Replay
 - judgment_id: ...
 - replay_hash: ...
+
+Trace
+- trace_id: ...
 ```
 
 
