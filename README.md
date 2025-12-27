@@ -617,6 +617,227 @@ it is not intelligence — it is noise.**
 
 ---
 
+# Syncrade Judgment Pipeline Spec v1
+
+**The Canonical Deterministic Judgment Pipeline**
+
+This document defines how Syncrade turns raw market reality into system-level judgments.  
+It freezes the boundary between data, inference, and authority.
+
+⸻
+
+## I. Core Definition
+
+A Judgment in Syncrade is:
+
+**A deterministic, replayable inference generated from observable behavioral data  
+under a frozen rule system and a time-bounded evidence window.**
+
+Not:
+- opinion
+- advice
+- suggestion
+- prediction without grounding
+
+It is:
+
+**A reproducible behavioral inference.**
+
+⸻
+
+## II. Judgment Pipeline Overview
+
+```
+[ Reality Layer ]
+     |
+     v
+[ Observation Layer ]
+     |
+     v
+[ Behavioral Modeling Layer ]
+     |
+     v
+[ Inference Layer ]
+     |
+     v
+[ Judgment Composer ]
+     |
+     v
+[ Judgment Object ]
+```
+
+**No layer may skip another.  
+No layer may inject free-form AI text.**
+
+⸻
+
+## III. Layer Specifications
+
+### 1. Reality Layer (Immutable Source)
+
+**Definition:**  
+On-chain + market observable reality.
+
+| Item | Description |
+|------|-------------|
+| Block data | tx, logs, balances |
+| Market data | price, liquidity, volume |
+| Time | Block height / timestamp |
+
+**Rules:**
+- Read-only
+- No interpretation
+- No normalization beyond units
+
+⸻
+
+### 2. Observation Layer (Normalization & Windows)
+
+**Purpose:**  
+Turn raw reality into comparable observation windows.
+
+**Produces Observation Objects:**
+
+| Field | Meaning |
+|-------|---------|
+| subject | wallet / token / cohort |
+| window | 3d / 7d / 30d |
+| metrics | tx_count, volume, pnl, hold_time, etc |
+| baselines | historical windows |
+
+**Rules:**
+- All windows are explicit
+- No interpretation
+- Only normalization & aggregation
+
+⸻
+
+### 3. Behavioral Modeling Layer
+
+**Purpose:**  
+Convert observations into behavioral signals.
+
+**Produces Behavior Vectors:**
+
+| Dimension | Examples |
+|-----------|----------|
+| Risk posture | risk-on / neutral / risk-off |
+| Activity regime | dormant / active / hyper |
+| Holding style | position / swing / scalp |
+| Capital flow bias | inflow / outflow |
+
+**Rules:**
+- Rule-based or frozen ML models only
+- No generative AI
+- Fully reproducible
+
+⸻
+
+### 4. Inference Layer
+
+**Purpose:**  
+Detect non-normal change and statistical asymmetry.
+
+**Outputs Inference Records:**
+
+| Field | Meaning |
+|-------|---------|
+| pattern | ACCUMULATION / ROTATION / THINNING |
+| magnitude | slight / noticeable / significant |
+| confidence | 0.0 – 1.0 |
+| persistence | consecutive windows |
+| anomaly | boolean |
+
+**Rules:**
+- Multi-dimensional agreement required
+- No narrative language
+- No prediction language
+
+⸻
+
+### 5. Judgment Composer
+
+**Purpose:**  
+Turn inferences into a canonical Judgment Object.
+
+**Composer is rule-based, not generative.**
+
+Output must be:
+- Finite
+- Frozen template
+- Explainable
+- Replayable
+
+⸻
+
+## IV. Judgment Object (Canonical Form)
+
+```
+Judgment := {
+  id,
+  subject,
+  time_window,
+  judgment_type,
+  severity,
+  confidence,
+  evidence_vectors,
+  baseline_vectors,
+  explanation,
+  expiry,
+  replay_hash
+}
+```
+
+**Explanation = structured reasoning bullets, not narrative.**
+
+⸻
+
+## V. Determinism & Replay Law
+
+Every judgment must satisfy:
+
+| Property | Rule |
+|----------|------|
+| Replayable | Same inputs → same output |
+| Time-bounded | Must expire |
+| Evidence-linked | All bullets trace to metrics |
+| Hashable | Can be fingerprinted |
+| Stateless | Judgment object is complete |
+
+⸻
+
+## VI. Role of LLM (Frozen Boundary)
+
+**LLM may never touch:**
+- Observation aggregation
+- Behavior modeling
+- Inference logic
+- Judgment generation
+
+**LLM may only be used in:**
+
+**Rendering layer:** converting Judgment Object into neutral natural language for humans.
+
+**LLM = narrator, never judge.**
+
+⸻
+
+## VII. Why This Creates Authority
+
+Because:
+- Reality is frozen
+- Behavior is modeled
+- Inference is deterministic
+- Judgment is reproducible
+- Language is secondary
+
+Therefore:
+
+**Syncrade does not "say things."  
+Syncrade derives judgments.**
+
+---
+
 ## Tech Stack
 
 - **React 19.2.0** + **React Router DOM 7.9.6**
