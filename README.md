@@ -1232,6 +1232,8 @@ These specs freeze how Syncrade behaves as a **system terminal**, so implementat
 - **Observability & Audit Log Spec v1**: `docs/observability-spec-v1.md`
 - **Privacy & Data Retention v1**: `docs/privacy-retention-v1.md`
 - **Golden Test Fixtures v1**: `docs/golden-fixtures-v1.md`
+- **Executable JSON Schemas (SSOT)**: `schemas/`
+- **Golden Fixtures (SSOT)**: `fixtures/`
 
 ---
 

@@ -41,4 +41,6 @@ Each fixture should include:
 - `replay_inputs`
 - `objects`
 
+See: `fixtures/v1/case-01.json`
+
 

@@ -194,6 +194,20 @@ If `confidence` is exposed, `confidence_method` must be:
 
 ⸻
 
+## 5.1.1 Uncertainty Computation Ownership (Frozen)
+
+Uncertainty is computed deterministically by the **Judgment Composer** (or equivalent deterministic scoring stage), not by LLM and not by rendering.
+
+Inputs allowed for uncertainty computation:
+
+- evidence completeness / data_quality flags
+- deterministic scoring outputs (calibrated)
+- multi-signal agreement/disagreement (deterministic)
+
+Rendering must not change uncertainty/confidence.
+
+⸻
+
 ## 5.2 SIGNAL Legality Requirements (Frozen)
 
 If `type = SIGNAL`, the object must satisfy:

@@ -1,0 +1,56 @@
+{
+  "name": "case-01-wallet-observation-minimal",
+  "replay_inputs": {
+    "subject_norm": { "chain": "base", "type": "wallet", "address": "0x1111111111111111111111111111111111111111" },
+    "window": { "start": "2026-01-01T00:00:00Z", "end": "2026-01-08T00:00:00Z" },
+    "pipeline_version": "JUDGMENT_PIPELINE_v1.0",
+    "rule_version": "RULES_v1.0",
+    "scoring_version": "SCORING_v1.0",
+    "dataset_snapshot": "onchain:base:20500000-20501000:2026-01-08T00:00:00Z",
+    "evidence_hash": "SHA256(canonical_json(sorted_normalized_evidence_list))"
+  },
+  "expected": {
+    "objects": [
+      {
+        "id": "syncrade:observation:base:2026-01-08:0x1111:7d:01",
+        "type": "OBSERVATION",
+        "subject": { "chain": "base", "wallet": "0x1111111111111111111111111111111111111111" },
+        "window": { "start": "2026-01-01T00:00:00Z", "end": "2026-01-08T00:00:00Z" },
+        "model": {
+          "pipeline_version": "JUDGMENT_PIPELINE_v1.0",
+          "rule_version": "RULES_v1.0",
+          "scoring_version": "SCORING_v1.0",
+          "params_hash": "params:default"
+        },
+        "inference": { "kind": "OBSERVATION", "text": "Observed onchain activity within the selected window." },
+        "uncertainty": 0.35,
+        "uncertainty_method": "RULE_CALIBRATED",
+        "confidence": 0.65,
+        "confidence_method": "ONE_MINUS_UNCERTAINTY",
+        "evidence": [
+          { "source": "onchain", "metric": "tx_count", "value": 12, "timestamp": "2026-01-08T00:00:00Z", "reference_id": "base:20500000-20501000" }
+        ],
+        "data_timestamp": "2026-01-08T00:00:00Z",
+        "expires_at": "2026-01-08T06:00:00Z",
+        "replay": {
+          "replay_key": "SHA256(canonical_json(replay_inputs))",
+          "dataset_snapshot": "onchain:base:20500000-20501000:2026-01-08T00:00:00Z",
+          "evidence_hash": "SHA256(canonical_json(sorted_normalized_evidence_list))",
+          "replay_inputs": {
+            "subject_norm": { "chain": "base", "type": "wallet", "address": "0x1111111111111111111111111111111111111111" },
+            "window": { "start": "2026-01-01T00:00:00Z", "end": "2026-01-08T00:00:00Z" },
+            "pipeline_version": "JUDGMENT_PIPELINE_v1.0",
+            "rule_version": "RULES_v1.0",
+            "scoring_version": "SCORING_v1.0",
+            "dataset_snapshot": "onchain:base:20500000-20501000:2026-01-08T00:00:00Z",
+            "evidence_hash": "SHA256(canonical_json(sorted_normalized_evidence_list))"
+          }
+        },
+        "safety_notice": "⚠️ Informational intelligence only. Not financial advice."
+      }
+    ],
+    "failures": []
+  }
+}
+
+

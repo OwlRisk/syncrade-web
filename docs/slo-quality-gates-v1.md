@@ -14,6 +14,7 @@ Return Failure Object instead of partial narrative when:
 - validation fails (`io-validator` fail)
 - data domain required by intent is unsupported
 - determinism cannot be guaranteed (missing snapshot/version)
+- authority minimum set is missing (dataset_snapshot / pipeline_version / replay_key / trace_id) for a conclusion-capable output
 
 ⸻
 

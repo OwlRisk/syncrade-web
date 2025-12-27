@@ -9,25 +9,37 @@ Unsupported inputs must degrade into explicit failure codes (no silent emptiness
 
 ## 1. Supported Chains (v1)
 
-**Declare explicitly in implementation** (v1 must not claim “all chains”).
+v1 supported chains are explicitly declared:
 
-Example structure (update as you implement):
-
-- Ethereum: TBD
-- Base: TBD
-- Solana: TBD
+- **Ethereum (mainnet)**: supported
+- **Base**: supported
+- **Solana**: **not supported** in v1 → return `UNSUPPORTED_CHAIN`
 
 ⸻
 
 ## 2. Supported Data Domains (v1)
 
-Declare explicitly per chain:
+Supported domains per chain (v1):
 
-- Transactions (tx)
-- Token transfers
-- DEX trades
-- Price
-- Liquidity
+### Ethereum (mainnet)
+
+- Transactions (tx): supported
+- Token transfers: supported
+- DEX trades: supported (if indexer/source available)
+- Price: supported (snapshotted; required if used in judgment meaning)
+- Liquidity: supported (if indexer/source available)
+
+### Base
+
+- Transactions (tx): supported
+- Token transfers: supported
+- DEX trades: supported (if indexer/source available)
+- Price: supported (snapshotted; required if used in judgment meaning)
+- Liquidity: supported (if indexer/source available)
+
+### Solana
+
+- Not supported in v1 → return `UNSUPPORTED_CHAIN`
 
 If a domain is missing, it must not be implied by UI wording.
 
@@ -37,9 +49,9 @@ If a domain is missing, it must not be implied by UI wording.
 
 Declare measurable freshness targets:
 
-- price: TBD (e.g., 30s)
-- onchain: TBD (e.g., 1 block)
-- aggregation: TBD (e.g., 5min)
+- **price snapshot**: ≤ 60s staleness (snapshot timestamp must be included)
+- **onchain snapshot**: ≤ 1 block behind finalized head (snapshot cutoff must be included)
+- **aggregation**: ≤ 5min refresh for derived aggregates (if used)
 
 ⸻
 

@@ -75,5 +75,11 @@ If caps are exceeded:
 
 - return Failure Object with `error_code = RESOURCE_LIMIT`
 
+Default caps (v1):
+
+- `MAX_TOOL_CALLS_PER_REQUEST = 8`
+- `MAX_WINDOW_SPAN_DAYS = 180`
+- `MAX_RETURNED_OBJECTS = 25`
+
 
 

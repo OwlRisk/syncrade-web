@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "syncrade://schemas/render-blocks-v1.schema.json",
+  "title": "RenderBlocksV1",
+  "type": "object",
+  "additionalProperties": true,
+  "required": ["trace_id", "blocks"],
+  "properties": {
+    "trace_id": { "type": "string" },
+    "blocks": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/RenderBlockV1" }
+    }
+  },
+  "$defs": {
+    "RenderBlockV1": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": ["type", "content"],
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "SUMMARY",
+            "CONCLUSION",
+            "EVIDENCE",
+            "UNCERTAINTY",
+            "PROVENANCE",
+            "REPLAY",
+            "FAILURE"
+          ]
+        },
+        "object_id": { "type": "string" },
+        "field_paths": { "type": "array", "items": { "type": "string" } },
+        "content": { "type": "object" }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "type": { "enum": ["SUMMARY", "CONCLUSION"] } } },
+          "then": { "required": ["object_id", "field_paths"] }
+        }
+      ]
+    }
+  }
+}
+
+

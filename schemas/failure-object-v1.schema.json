@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "syncrade://schemas/failure-object-v1.schema.json",
+  "title": "FailureObjectV1",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "kind",
+    "error_code",
+    "what_happened",
+    "what_user_can_do",
+    "feedback_link",
+    "trace_id",
+    "created_at",
+    "pipeline_version"
+  ],
+  "properties": {
+    "kind": { "type": "string", "const": "FAILURE" },
+    "error_code": { "type": "string" },
+    "what_happened": { "type": "string" },
+    "what_user_can_do": { "type": "string" },
+    "feedback_link": { "type": "string" },
+    "trace_id": { "type": "string" },
+    "created_at": { "type": "string" },
+    "pipeline_version": { "type": "string" },
+    "judgment_id": { "type": "string" }
+  }
+}
+
+
