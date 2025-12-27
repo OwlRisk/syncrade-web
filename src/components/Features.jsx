@@ -1,26 +1,26 @@
 import Icon from './Icon';
 
 const Features = () => (
-  <div className="features" id="signals">
+  <div className="features" id="capabilities">
     <div className="card">
       <Icon name="signal-waves" />
-      <h3>Signals</h3>
-      <p>Algorithmic trade signals with clear entry, levels, and risk context to keep you decisive.</p>
+      <h3>Onchain Q&A</h3>
+      <p>Ask about any address, transaction, token, or contract — get a structured, evidence-backed explanation.</p>
     </div>
-    <div className="card" id="education">
+    <div className="card" id="trace">
       <Icon name="graduation-cap" />
-      <h3>Education</h3>
-      <p>Market structure, playbooks, and tutorials designed to turn signals into repeatable decisions.</p>
+      <h3>Trace & replay</h3>
+      <p>Every output is tied to sources, time windows, and rule versions — replayable, not vibes.</p>
     </div>
     <div className="card" id="monitoring">
       <Icon name="eye" />
       <h3>Monitoring</h3>
-      <p>Real-time market monitoring with alerts that surface meaningful moves, not noise.</p>
+      <p>Watchlists and alerts for onchain changes — new interactions, balance moves, and behavioral shifts.</p>
     </div>
-    <div className="card" id="ratings">
+    <div className="card" id="safety">
       <Icon name="stars" />
-      <h3>Ratings</h3>
-      <p>Data-led ratings and risk scoring to benchmark tokens, strategies, and signal quality.</p>
+      <h3>Safety boundary</h3>
+      <p>No trade instructions. No profit promises. Clear uncertainty and what could invalidate a judgment.</p>
     </div>
   </div>
 );

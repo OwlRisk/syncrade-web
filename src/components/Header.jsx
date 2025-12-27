@@ -12,16 +12,16 @@ const Header = () => (
       </div>
       <nav className="nav-links" aria-label="Primary">
         <a href="#bot">Telegram Bot</a>
-        <a href="#signals">Signals</a>
-        <a href="#education">Education</a>
+        <a href="#capabilities">Capabilities</a>
+        <a href="#trace">Trace</a>
         <a href="#monitoring">Monitoring</a>
-        <a href="#ratings">Ratings</a>
+        <a href="#safety">Safety</a>
         <a href="https://blog.syncrade.com" target="_blank" rel="noopener noreferrer">Blog</a>
         <a href="https://t.me/syncrade" target="_blank" rel="noopener noreferrer">Community</a>
       </nav>
       <a className="cta" href="https://t.me/syncradebot" target="_blank" rel="noopener noreferrer" aria-label="Launch Syncrade Telegram Bot">
         <Icon name="paper-plane" />
-        Launch Bot
+        Open Bot
       </a>
     </div>
   </header>

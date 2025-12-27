@@ -5,37 +5,40 @@ const Hero = () => (
     <div className="container hero-inner">
       <div>
         <div className="eyebrow">
-          <span>Official community of Syncrade AI Hub</span>
+          <span>Telegram-first onchain AI chat</span>
           <span className="sep">|</span>
-          <span>Transparency</span>
+          <span>Evidence</span>
           <span className="sep">|</span>
-          <span>Data</span>
+          <span>Replayability</span>
           <span className="sep">|</span>
-          <span>AI</span>
+          <span>Restraint</span>
         </div>
 
-        <h1 className="h1">AI-driven trading intelligence<br />for blockchain markets</h1>
-        <p className="sub">Powered by bots, signals, and risk analytics. No deposits. Support via Telegram Stars only.</p>
+        <h1 className="h1">Ask anything onchain.<br />Get traceable answers.</h1>
+        <p className="sub">
+          Syncrade is a judgment-first AI chat for blockchain investigation — addresses, transactions, tokens, and contracts.
+          Evidence in, structured output out. No trade instructions.
+        </p>
 
         <div className="badges">
-          <span className="badge" title="No deposits required">
+          <span className="badge" title="Evidence-first, replayable outputs">
             <Icon name="shield-check" />
-            No deposits
+            Evidence-first
           </span>
-          <span className="badge" title="Support via Telegram Stars">
-            <Icon name="star" />
-            Telegram Stars only
-          </span>
-          <span className="badge" title="Risk analytics">
+          <span className="badge" title="Every result can be traced and replayed">
             <Icon name="radar" />
-            Risk analytics
+            Replayable
+          </span>
+          <span className="badge" title="No custody, no deposits">
+            <Icon name="star" />
+            No deposits (Stars support)
           </span>
         </div>
 
         <div className="hero-ctas">
           <a className="cta" href="https://t.me/syncradebot" target="_blank" rel="noopener noreferrer">
             <Icon name="paper-plane" />
-            Launch Telegram Bot
+            Open Telegram Bot
           </a>
           <a className="ghost" href="https://t.me/syncrade" target="_blank" rel="noopener noreferrer">
             <Icon name="people" />
@@ -72,28 +75,25 @@ const BotPreview = () => (
         <div className="row">
           <div className="pill">
             <Icon name="bolt" />
-            Signal
+            Query
           </div>
           <span className="spread">
-            <strong>PAIR</strong> BTC/USDT
+            <strong>ADDRESS</strong> 0x…7f2a
           </span>
         </div>
         <div className="row">
-          <div className="levels">
-            <span className="lvl"><strong>Entry</strong> 67,420</span>
-            <span className="lvl"><strong>Target 1</strong> 68,200</span>
-            <span className="lvl"><strong>Target 2</strong> 69,050</span>
-            <span className="lvl"><strong>Invalidation</strong> 66,580</span>
-          </div>
+          <span className="spread">
+            <strong>Observation</strong> Activity increased vs 30d baseline
+          </span>
         </div>
         <div className="row">
           <span className="pill">
             <Icon name="activity" />
-            Confidence: Medium
+            Uncertainty: Medium
           </span>
           <span className="pill">
             <Icon name="gauge" />
-            Risk: Balanced
+            Trace: 12 txs (7d)
           </span>
         </div>
       </div>
@@ -105,7 +105,7 @@ const BotPreview = () => (
             Monitoring
           </div>
           <span className="spread">
-            <strong>ALERT</strong> Volatility spike
+            <strong>ALERT</strong> New contract interaction detected
           </span>
         </div>
         <div className="row">
@@ -115,7 +115,7 @@ const BotPreview = () => (
           </span>
           <span className="pill">
             <Icon name="shield-check-2" />
-            No deposits
+            No custody
           </span>
         </div>
       </div>

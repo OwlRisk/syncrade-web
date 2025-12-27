@@ -16,26 +16,27 @@ const Footer = () => {
             <strong>Syncrade</strong>
           </div>
           <p style={{ margin: '0 0 10px' }}>
-            Syncrade AI Hub — an AI-driven trading intelligence ecosystem. Powered by bots, signals, and risk analytics.
+            Syncrade — a Telegram-first onchain AI chat for investigation and judgment. Evidence-first, replayable, and restrained by design.
           </p>
           <div className="badges">
-            <span className="badge">No deposits</span>
-            <span className="badge">Telegram Stars only</span>
-            <span className="badge">Transparency | Data | AI</span>
+            <span className="badge">Evidence | Replay | Restraint</span>
+            <span className="badge">No deposits (Stars support)</span>
+            <span className="badge">Non-custodial</span>
           </div>
         </div>
 
         <div className="f-col">
           <h4>Product</h4>
           <a href="#bot">Telegram Bot</a>
-          <a href="#signals">Signals</a>
+          <a href="#capabilities">Capabilities</a>
+          <a href="#trace">Trace</a>
           <a href="#monitoring">Monitoring</a>
-          <a href="#ratings">Ratings</a>
+          <a href="#safety">Safety</a>
         </div>
 
         <div className="f-col">
           <h4>Resources</h4>
-          <a href="/blog">Blog</a>
+          <a href="https://blog.syncrade.com" target="_blank" rel="noopener noreferrer">Blog</a>
           <a href="https://t.me/syncrade" target="_blank" rel="noopener noreferrer">Community</a>
           <a href="#" aria-disabled="true">Docs (coming soon)</a>
         </div>
@@ -50,7 +51,7 @@ const Footer = () => {
 
       <div className="container" style={{ marginTop: '18px', color: 'var(--muted)', fontSize: '12.5px' }}>
         <p style={{ margin: '0' }}>
-          Risk disclaimer: Trading digital assets involves significant risk and can result of your capital. Nothing here is financial advice. Syncrade does not accept deposits; support is available via Telegram Stars only.
+          Disclaimer: Digital assets are volatile and risky. Syncrade provides informational analysis and tooling outputs only — not financial advice, not trade instructions, and no profit guarantees. Syncrade does not accept deposits; support is available via Telegram Stars only.
         </p>
         <p style={{ margin: '8px 0 0' }}>© <span id="year"></span> Syncrade. All rights reserved.</p>
       </div>

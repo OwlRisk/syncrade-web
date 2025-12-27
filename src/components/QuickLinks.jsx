@@ -15,7 +15,9 @@ const QuickLinks = () => (
           <a className="badge" href="https://t.me/syncrade" target="_blank" rel="noopener noreferrer">
             Join Syncrade AI Hub
           </a>
-          <a className="badge" href="/blog">Visit Blog</a>
+          <a className="badge" href="https://blog.syncrade.com" target="_blank" rel="noopener noreferrer">
+            Visit Blog
+          </a>
         </div>
       </div>
     </div>
