@@ -445,6 +445,333 @@ Frozen clause:
 
 # Syncrade Intelligence Object Spec v1
 
+**现在整个系统只差一个东西：**
+
+**你要让"判断"从语言，变成"对象"。**
+
+也就是：  
+Syncrade 不再是"给你一句话"，  
+而是：给你一个"可以被存档、被引用、被 replay、被审计"的 Intelligence Object。
+
+⸻
+
+**(Judgment as First-Class Object)**
+
+**Status: Frozen (Constitution Layer)**
+
+⸻
+
+## I. Core Definition
+
+In Syncrade, every system output is not a message.  
+**It is an Intelligence Object.**
+
+An Intelligence Object is a deterministic, replayable, auditable unit of market judgment.
+
+**It is the atomic unit of Syncrade's authority.**
+
+⸻
+
+## II. Why This Exists (Critical)
+
+**Without this layer:**
+- LLM outputs are just text
+- Signals are just content
+- Judgments are not provable
+- Authority collapses into "AI opinions"
+
+**With this layer:**
+
+**Syncrade outputs become objects, not text.  
+Authority becomes structural, not rhetorical.**
+
+⸻
+
+## III. Object Types
+
+| Object Type | Purpose |
+|-------------|---------|
+| OBSERVATION | Raw deterministic findings |
+| SIGNAL | Probabilistic future-facing judgment |
+| INSIGHT | Stable historical behavior shift |
+| RISK | Risk classification & stability |
+| BEHAVIOR | Persona & behavior modeling |
+
+**Only these 5 types are legal Intelligence Objects in v1 (compile-time).**
+
+**SUMMARY is not an Intelligence Object type.**  
+SUMMARY is a **Render Block / Composite View** in the UI projection layer (built from one or more Intelligence Objects).
+
+⸻
+
+## IV. Canonical Intelligence Object Schema
+
+```
+IntelligenceObject := {
+  id: "syncrade:signal:2026-01-03:btc-momentum-01",
+  type: "SIGNAL",
+
+  subject: {
+    asset: "BTC/USDT",
+    scope: "market"
+  },
+
+  judgment: {
+    scenario: "Momentum continuation more likely",
+    confidence: 0.73,
+    direction: "Continuation"
+  },
+
+  evidence: [
+    "On-chain accumulation detected",
+    "Wallet clustering behavior increased",
+    "Liquidity compression"
+  ],
+
+  window: {
+    start: "2026-01-02T00:00:00Z",
+    end: "2026-01-03T03:00:00Z"
+  },
+
+  expiry: "2026-01-03T06:00:00Z",
+
+  provenance: {
+    pipeline_version: "JUDGMENT_PIPELINE_v1",
+    dataset_snapshot: "onchain_2026-01-03_02h",
+    deterministic: true,
+    replayable: true
+  },
+
+  safety: {
+    advisory: false,
+    disclaimer: "Informational intelligence only. Not financial advice."
+  }
+}
+```
+
+⸻
+
+## V. Non-Negotiable Laws
+
+| Law | Meaning |
+|-----|---------|
+| No text without object | No message exists without object backing |
+| No object without window | Every judgment is time-bounded |
+| No object without provenance | Must be replayable |
+| No object without safety | Legal boundary frozen |
+| No random object | LLM cannot create objects directly |
+
+⸻
+
+## VI. LLM Position (Critical)
+
+**LLM is never the producer of Intelligence Objects.**
+
+LLM can only:
+- Classify
+- Explain
+- Render
+- Template-fill
+
+**The pipeline produces the object.  
+LLM only speaks it.**
+
+⸻
+
+## VII. Authority Equation
+
+**Syncrade Authority = Intelligence Objects × Deterministic Pipeline × Replayability**
+
+**If any factor = 0 → Authority = 0**
+
+⸻
+
+## VIII. System Identity Shift
+
+You are no longer building:
+- A website
+- A bot
+- An AI assistant
+
+You are building:
+
+**A Judgment Object Engine**
+
+**This is your moat.  
+This is why no landing page, no competitor, no UI can replicate you.**
+
+---
+
+# Syncrade Intelligence Object Spec v1 (Technical)
+
+**The Atomic Unit of Market Judgment**
+
+⸻
+
+## 0. 核心宣言
+
+**Syncrade 不输出"内容"。  
+Syncrade 只输出 Intelligence Objects。**
+
+所有页面、信号、insights、判断、解释、历史、复现，  
+都是 Intelligence Object 的不同投影形态。
+
+⸻
+
+## 1. Intelligence Object 定义
+
+**Intelligence Object = 一个可复现的判断原子**
+
+不是一句话。  
+不是一段解释。  
+不是一个信号。
+
+而是一个 **可被 replay / audit / trace 的判断实体**。
+
+⸻
+
+## 2. Intelligence Object 抽象结构
+
+```
+IntelligenceObject := {
+    id,                 # 全局唯一判断ID
+    type,               # OBSERVATION / SIGNAL / INSIGHT / RISK / BEHAVIOR
+    subject,            # 判断对象（wallet / token / market / cohort）
+    window,             # 数据时间窗口
+    model,              # 行为模型 / 推理模型
+    inference,          # 推断结论（结构化）
+    confidence,         # 概率置信
+    evidence,           # 证据集
+    explanation,        # 人类可读解释
+    created_at,         # 生成时间
+    expires_at,         # 失效时间
+    replay_hash,        # 可复现哈希
+    safety_notice       # 合规说明
+}
+```
+
+⸻
+
+## 3. Five Canonical Types
+
+| Type | Meaning |
+|------|---------|
+| OBSERVATION | 事实观察 |
+| SIGNAL | 市场级智能判断 |
+| INSIGHT | 稳定行为变化总结 |
+| RISK | 风险异常判断 |
+| BEHAVIOR | 行为画像结论 |
+
+**Syncrade 的一切输出只能属于这 5 种。**
+
+⸻
+
+## 4. Judgment Atomicity Law
+
+每一个 Intelligence Object：
+- 只能表达 **一个判断**
+- 不能混合多种结论
+- 不能混合多个建议
+- 不能携带操作指令
+- 不能是"模糊表达"
+
+**这是你系统可信的基础。**
+
+⸻
+
+## 5. Determinism Clause
+
+Given the same:
+- Subject
+- Window
+- Model
+- Evidence
+
+**The Intelligence Object MUST be identical.**
+
+否则 → 不是 Syncrade Judgment。
+
+⸻
+
+## 6. Confidence Semantics
+
+| Range | Meaning |
+|-------|---------|
+| 0.00 – 0.39 | Weak |
+| 0.40 – 0.69 | Medium |
+| 0.70 – 1.00 | Strong |
+
+**置信度是概率，不是"信心"。**
+
+⸻
+
+## 7. Evidence Object Model
+
+```
+Evidence := {
+    source,
+    metric,
+    value,
+    delta,
+    baseline,
+    timestamp
+}
+```
+
+**所有判断必须引用 Evidence。**
+
+**没有 Evidence → 不允许生成。**
+
+⸻
+
+## 8. Explanation Law
+
+**Explanation 是 Evidence 的自然语言投影，不允许新增事实。**
+
+**LLM 只能在这一层工作。**
+
+⸻
+
+## 9. Replay Law
+
+```
+hash = SHA256(subject + window + model + evidence)
+```
+
+**如果 hash 不一致 → Judgment 非法。**
+
+⸻
+
+## 10. Safety Boundary
+
+| Forbidden |
+|-----------|
+| Buy / Sell / Entry / Exit |
+| Target price |
+| Guaranteed profit |
+| Directional trade language |
+| Behavioral coercion |
+
+**所有 Intelligence Objects 都必须携带：**
+
+⚠️ **Informational intelligence only. Not financial advice.**
+
+⸻
+
+## 11. Everything Is An Intelligence Object
+
+| Feature | Object Type |
+|---------|-------------|
+| /signal | SIGNAL |
+| /insights | INSIGHT |
+| Wallet analyze | BEHAVIOR |
+| Risk alert | RISK |
+| Market summary | OBSERVATION |
+
+---
+
+# Syncrade Intelligence Object Spec v1 (Detailed)
+
 **(Canonical Judgment Object Definition)**
 
 This document defines what an "intelligence output" is allowed to be inside Syncrade.  
@@ -835,6 +1162,67 @@ Therefore:
 
 **Syncrade does not "say things."  
 Syncrade derives judgments.**
+
+---
+
+# Frozen Product Specs v1 (Product Layer)
+
+These specs freeze how Syncrade behaves as a **system terminal**, so implementation cannot drift into “chat app” or “content page” behavior.
+
+- **Hard rule (Terminology is an API)**: user-visible dictionary is **unique** (Signal/Insight/Observation/Risk/Behavior...). UI copy **must not invent new nouns**. Forbidden lexicon is treated as **compile-time failure**, not “style preference”.
+- **Hard rule (v1 schema is singular)**: v1 recognizes **one** Minimal + Extensible Intelligence Object schema (replayable). “Conceptual/Technical/Detailed” sections are explanatory; schema drift is illegal.
+
+- **Single Source of Truth (Executable)**:
+  - **Only legal object**: `docs/intelligence-object-schema-v1.md`
+  - Any other schema-like text is **explanatory only** and must not introduce fields
+  - **Hard rule**: any API response that claims to be an Intelligence Object must pass `io-validator` (zod/ajv/json-schema). If validation fails → **build failure**.
+
+- **Replay Triple (Minimum, must be projectable in UI)**:
+  - `dataset_snapshot`
+  - `pipeline_version` (and rule/scoring versions if split)
+  - `replay_key` (hash inputs explicitly defined; see schema spec)
+  - **Hard rule**: every conclusion block must be able to show these three (collapsible allowed).
+
+- **LLM Usage (Engineering Rules)**:
+  - v1 allows LLM calls only for:
+    - **Intent parsing**: `user_input → QueryIntent (JSON)`
+    - **Rendering**: `IntelligenceObject[] → RenderBlocks (JSON)`
+  - **Hard rule**: LLM must output structured JSON only; it must not directly output user-visible “judgment text”.
+  - **Hard rule**: rendering may rephrase only; it must not add facts beyond validated object fields.
+
+- **Failure as an Auditable Object**:
+  - v1 failures must return a **Failure Object** (separate validated schema; not an Intelligence Object type) with:
+    - `error_code`
+    - `what_happened` (neutral)
+    - `what_user_can_do` (allowed actions only)
+    - `feedback_link` + `request_id/trace_id`
+  - **Hard rule**: every failure must provide copyable `trace_id` (and `judgment_id` if present).
+
+- **Terminology Compile-Time Constraint**:
+  - UI nouns must come from `docs/terminology.json`
+  - Any new noun requires updating the dictionary before code changes
+
+- **Out of Scope v1 (Frozen)**:
+  - No login / accounts
+  - No asset management / custody / trade execution
+  - No “agent long memory” (session memory only; max one subject reference)
+  - No multi-chain “full coverage” (explicitly declare supported chains/data sources in implementation)
+  - No personalized investment advice / portfolio recommendations
+
+- **Projection Spec v1 (Object → UI)**: `docs/projection-spec-v1.md`
+- **Query Interaction Protocol v1**: `docs/query-interaction-protocol-v1.md`
+- **Terminology Constitution v1 (External Dictionary)**: `docs/terminology-constitution-v1.md`
+- **Compliance Output Rules v1**: `docs/compliance-output-rules-v1.md`
+- **Replay UX Spec v1**: `docs/replay-ux-spec-v1.md`
+- **LLM Usage Contract v1**: `docs/llm-usage-contract-v1.md`
+- **Failure & Feedback Protocol v1**: `docs/failure-feedback-protocol-v1.md`
+- **Intelligence Object Schema v1 (Minimal + Extensible)**: `docs/intelligence-object-schema-v1.md`
+- **Supported Sources Declaration v1**: `docs/supported-sources-v1.md`
+- **API Contract v1**: `docs/api-contract-v1.md`
+- **Error Codes Dictionary v1**: `docs/error-codes-v1.md`
+- **Observability & Audit Log Spec v1**: `docs/observability-spec-v1.md`
+- **Privacy & Data Retention v1**: `docs/privacy-retention-v1.md`
+- **Golden Test Fixtures v1**: `docs/golden-fixtures-v1.md`
 
 ---
 

@@ -1,0 +1,39 @@
+{
+  "version": "v1",
+  "status": "frozen",
+  "nouns": [
+    "OBSERVATION",
+    "SIGNAL",
+    "INSIGHT",
+    "RISK",
+    "BEHAVIOR"
+  ],
+  "render_block_types": [
+    "SUMMARY"
+  ],
+  "non_io_object_kinds": [
+    "FAILURE"
+  ],
+  "forbidden_lexicon": [
+    "buy",
+    "sell",
+    "entry",
+    "exit",
+    "target",
+    "opportunity",
+    "bullish",
+    "bearish",
+    "tp",
+    "sl",
+    "long",
+    "short"
+  ],
+  "notes": [
+    "UI copy must not invent new nouns beyond nouns[].",
+    "SUMMARY is a Render Block / Composite View, not an Intelligence Object type.",
+    "FAILURE is a failure object kind (separate schema), not an Intelligence Object type.",
+    "forbidden_lexicon is treated as compile-time failure (lint/CI)."
+  ]
+}
+
+
