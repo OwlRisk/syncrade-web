@@ -94,13 +94,17 @@ MORPHEUS_API_VERSION=v1  # if applicable
 # LLM Provider (if using)
 LLM_PROVIDER=openai  # or anthropic, etc.
 LLM_API_KEY=sk-...
-LLM_MAX_TOKENS=2000
 LLM_TEMPERATURE=0.0  # deterministic (frozen by Model Binding Clause)
 
 # Canonical Model Set (from llm-usage-contract-v1.md Model Binding Clause)
 LLM_MODEL_PRIMARY_REASONER=gpt-5.2  # Complex intent parsing & structured rendering
 LLM_MODEL_LOW_COST_RENDERER=gpt-5-mini  # Cached / fallback rendering
 LLM_MODEL_NANO_ROUTER=gpt-5-nano  # High-throughput routing / classification
+
+# Token Limits (per model role)
+LLM_MAX_TOKENS_PRIMARY_REASONER=4000  # Complex intent parsing & multi-object rendering
+LLM_MAX_TOKENS_LOW_COST_RENDERER=2000  # Simple rendering / fallback
+LLM_MAX_TOKENS_NANO_ROUTER=500  # Routing / classification only
 
 # Model Versioning (for Determinism Guard)
 LLM_MODEL_VERSION_HASH=...  # Hash of model version for replay
