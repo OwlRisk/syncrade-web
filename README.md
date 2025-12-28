@@ -1236,17 +1236,23 @@ These specs freeze how Syncrade behaves as a **system terminal**, so implementat
 - **Golden Fixtures (SSOT)**: `fixtures/`
 
 **Engineering & Deployment:**
-- **Deployment Guide v1**: `docs/deployment-guide-v1.md`
+- **Deployment Guide v1**: `docs/deployment-guide-v1.md` (Next.js + Vercel, Python backend)
 - **Environment Configuration v1**: `docs/environment-config-v1.md`
 - **Development Setup Guide v1**: `docs/development-setup-v1.md`
+- **Python Backend Structure v1**: `docs/python-backend-structure-v1.md`
 
 ---
 
 ## Tech Stack
 
-- **React 19.2.0** + **React Router DOM 7.9.6**
-- **Vite 7.2.2** - Build tool
-- **GitHub Pages** - Deployment platform
+**Frontend:**
+- **Next.js** (recommended) - Framework
+- **Vercel** - Deployment platform
+
+**Backend:**
+- **Python 3.11+** - Language
+- **FastAPI** - Web framework
+- **Uvicorn** - ASGI server
 
 ## Development
 

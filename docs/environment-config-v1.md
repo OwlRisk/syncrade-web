@@ -6,53 +6,58 @@ This document defines all environment variables and configuration keys for Syncr
 
 ⸻
 
-## 1. Frontend Environment Variables
+## 1. Frontend Environment Variables (Next.js)
 
 ### 1.1 Development
 
-**File:** `.env.development` (optional, defaults work for local dev)
+**File:** `.env.local` (gitignored, for local development)
 
 ```bash
-# API endpoint (if backend exists)
-VITE_API_BASE_URL=http://localhost:3000
-VITE_API_VERSION=v1
+# API endpoint (Python backend)
+NEXT_PUBLIC_API_BASE_URL=http://localhost:8000
+NEXT_PUBLIC_API_VERSION=v1
 
 # Feature flags (if any)
-VITE_ENABLE_DEBUG=true
+NEXT_PUBLIC_ENABLE_DEBUG=true
 ```
 
 ⸻
 
 ### 1.2 Production
 
-**File:** `.env.production`
+**File:** `.env.production` (or set in Vercel dashboard)
 
 ```bash
 # API endpoint
-VITE_API_BASE_URL=https://api.your-domain.com
-VITE_API_VERSION=v1
+NEXT_PUBLIC_API_BASE_URL=https://api.your-domain.com
+NEXT_PUBLIC_API_VERSION=v1
 
 # Feature flags
-VITE_ENABLE_DEBUG=false
+NEXT_PUBLIC_ENABLE_DEBUG=false
 ```
 
-**Note:** Vite requires `VITE_` prefix for client-side variables.
+**Note:** Next.js requires `NEXT_PUBLIC_` prefix for client-side variables.  
+**Vercel:** Set these in Project Settings → Environment Variables.
 
 ⸻
 
-## 2. Backend Environment Variables
+## 2. Backend Environment Variables (Python)
 
 ### 2.1 Server Configuration
 
 ```bash
 # Server
-API_PORT=3000
+API_PORT=8000
 API_HOST=0.0.0.0
-NODE_ENV=production
+PYTHON_ENV=production  # or development
 
 # Base URL (for CORS, links, etc.)
 API_BASE_URL=https://api.your-domain.com
 FRONTEND_URL=https://your-domain.com
+
+# Python/ASGI
+UVICORN_WORKERS=4  # for production
+UVICORN_RELOAD=false  # set to true for development
 ```
 
 ⸻
@@ -91,6 +96,9 @@ LLM_TEMPERATURE=0.0  # deterministic
 # LLM Budget (from llm-usage-contract-v1.md)
 LLM_MAX_CALLS_PER_REQUEST=2  # intent + render
 LLM_FALLBACK_ENABLED=true
+
+# Python LLM client (if using OpenAI)
+OPENAI_API_KEY=${LLM_API_KEY}  # OpenAI Python SDK uses this
 ```
 
 **See:** `docs/llm-usage-contract-v1.md`
@@ -127,13 +135,19 @@ RATE_LIMIT_IP_WINDOW_MS=60000
 ### 2.6 Storage
 
 ```bash
-# Database (if using)
+# Database (if using PostgreSQL)
 DATABASE_URL=postgresql://user:pass@localhost:5432/syncrade
 DATABASE_POOL_SIZE=10
+
+# Python database (SQLAlchemy/asyncpg)
+DB_ECHO=false  # SQLAlchemy echo SQL queries
+DB_POOL_SIZE=10
+DB_MAX_OVERFLOW=20
 
 # Cache (if using Redis)
 REDIS_URL=redis://localhost:6379
 REDIS_TTL_SECONDS=3600
+REDIS_DB=0
 
 # Object Storage (for snapshots, if using)
 S3_BUCKET=syncrade-snapshots
@@ -151,6 +165,10 @@ AWS_SECRET_ACCESS_KEY=...
 LOG_LEVEL=info  # debug, info, warn, error
 LOG_FORMAT=json  # or text
 LOG_FILE=/var/log/syncrade/api.log
+
+# Python logging
+PYTHON_LOG_LEVEL=INFO  # DEBUG, INFO, WARNING, ERROR
+PYTHON_LOG_FORMAT=json
 
 # Tracing
 TRACE_ENABLED=true
@@ -193,19 +211,36 @@ SSL_KEY_PATH=/path/to/key.pem
 - Resource limits are positive numbers
 - Rate limits are reasonable
 
-**Example validation:**
-```javascript
-const required = [
-  'API_PORT',
-  'ETHEREUM_RPC_URL',
-  'LLM_API_KEY',
-];
+**Example validation (Python):**
+```python
+import os
+from typing import List
 
-for (const key of required) {
-  if (!process.env[key]) {
-    throw new Error(`Missing required env: ${key}`);
-  }
-}
+required: List[str] = [
+    'API_PORT',
+    'ETHEREUM_RPC_URL',
+    'LLM_API_KEY',
+]
+
+missing = [key for key in required if not os.getenv(key)]
+if missing:
+    raise ValueError(f"Missing required env vars: {', '.join(missing)}")
+```
+
+**Using Pydantic Settings (recommended):**
+```python
+from pydantic_settings import BaseSettings
+
+class Settings(BaseSettings):
+    api_port: int = 8000
+    ethereum_rpc_url: str
+    llm_api_key: str
+    
+    class Config:
+        env_file = ".env"
+        case_sensitive = False
+
+settings = Settings()  # Will raise ValidationError if required fields missing
 ```
 
 ⸻

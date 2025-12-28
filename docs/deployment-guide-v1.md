@@ -6,14 +6,58 @@ This guide covers deployment of Syncrade v1 components: frontend (static site) a
 
 ⸻
 
-## 1. Frontend Deployment (Static Site)
+## 1. Frontend Deployment
 
-### 1.1 GitHub Pages (Current)
+### 1.1 Next.js + Vercel (Recommended)
 
-**Current setup:**
-- Build output: `dist/`
-- Base path: `/synctrade-static/`
-- Deploy command: `npm run deploy`
+**Setup:**
+- Framework: Next.js
+- Platform: Vercel
+- Auto-deploy: On push to main/develop branch
+
+**Steps:**
+
+1. **Connect repository to Vercel:**
+   - Go to [vercel.com](https://vercel.com)
+   - Import your GitHub repository
+   - Vercel will auto-detect Next.js
+
+2. **Configure build settings:**
+   - Build Command: `npm run build` (default)
+   - Output Directory: `.next` (default)
+   - Install Command: `npm install`
+
+3. **Environment variables:**
+   - Add in Vercel dashboard: Settings → Environment Variables
+   - Required variables (see `docs/environment-config-v1.md`):
+     ```
+     NEXT_PUBLIC_API_BASE_URL=https://api.your-domain.com
+     NEXT_PUBLIC_API_VERSION=v1
+     ```
+
+4. **Deploy:**
+   - Push to main/develop → Auto-deploy
+   - Or manually deploy from Vercel dashboard
+
+**Vercel Configuration (`vercel.json`):**
+```json
+{
+  "buildCommand": "npm run build",
+  "devCommand": "npm run dev",
+  "installCommand": "npm install",
+  "framework": "nextjs",
+  "regions": ["iad1"]
+}
+```
+
+⸻
+
+### 1.2 GitHub Pages (Alternative - Static Export)
+
+**If using Next.js static export:**
+- Add to `next.config.js`: `output: 'export'`
+- Build output: `out/`
+- Deploy: `gh-pages -d out`
 
 **Steps:**
 ```bash
@@ -22,13 +66,9 @@ npm run build
 npm run deploy
 ```
 
-**Requirements:**
-- GitHub repository with `gh-pages` branch
-- GitHub Pages enabled in repository settings
-
 ⸻
 
-### 1.2 Server Deployment (Static Files)
+### 1.3 Server Deployment (Static Files)
 
 If deploying to your own server:
 
@@ -85,16 +125,49 @@ CMD ["nginx", "-g", "daemon off;"]
 
 ⸻
 
-## 2. Backend API Deployment
+## 2. Backend API Deployment (Python)
 
-If you have a backend server implementing the API contract (`docs/api-contract-v1.md`):
+Backend implements the API contract (`docs/api-contract-v1.md`) using Python (FastAPI recommended).
 
-### 2.1 Environment Variables
+### 2.1 Python Backend Setup
+
+**Recommended stack:**
+- Framework: FastAPI (or Flask)
+- ASGI Server: Uvicorn (for FastAPI) or Gunicorn (for Flask)
+- Python: 3.11+
+
+**Project structure:**
+```
+syncrade-api/
+  app/
+    __init__.py
+    main.py              # FastAPI app entry
+    routes/
+      query.py          # POST /query
+      render.py         # POST /render
+      replay.py         # GET /replay/:replay_key
+    services/
+      intent_parser.py  # LLM intent parsing
+      pipeline.py       # Deterministic pipeline
+      renderer.py       # LLM rendering
+    validators/
+      io_validator.py   # Intelligence Object validation
+      failure_validator.py
+    utils/
+      replay.py         # Replay hash generation
+  requirements.txt
+  Dockerfile
+  .env.example
+```
+
+⸻
+
+### 2.2 Environment Variables
 
 **Required (minimum):**
 ```bash
 # API Configuration
-API_PORT=3000
+API_PORT=8000
 API_HOST=0.0.0.0
 
 # Data Sources
@@ -104,8 +177,8 @@ PRICE_API_KEY=...
 
 # LLM (if used)
 LLM_API_KEY=...
-LLM_MODEL=...
-LLM_MAX_TOKENS=...
+LLM_MODEL=gpt-4-turbo-preview
+LLM_MAX_TOKENS=2000
 
 # Resource Limits (from security-abuse-protocol-v1.md)
 MAX_TOOL_CALLS_PER_REQUEST=8
@@ -113,42 +186,59 @@ MAX_WINDOW_SPAN_DAYS=180
 MAX_RETURNED_OBJECTS=25
 
 # Storage
-DATABASE_URL=...  # if using database
-REDIS_URL=...     # if using cache
+DATABASE_URL=postgresql://...  # if using database
+REDIS_URL=redis://...          # if using cache
 
 # Observability
 LOG_LEVEL=info
 TRACE_ENABLED=true
 ```
 
-**See:** `docs/environment-config-v1.md` (if created)
+**See:** `docs/environment-config-v1.md` for complete list.
 
 ⸻
 
-### 2.2 Docker Deployment (Backend)
+### 2.3 Docker Deployment (Python Backend)
 
-**Example Dockerfile:**
+**Dockerfile:**
 ```dockerfile
-FROM node:20-alpine
+FROM python:3.11-slim
 
 WORKDIR /app
 
-# Install dependencies
-COPY package*.json ./
-RUN npm ci --only=production
+# Install system dependencies
+RUN apt-get update && apt-get install -y \
+    gcc \
+    && rm -rf /var/lib/apt/lists/*
+
+# Install Python dependencies
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy application
 COPY . .
 
 # Expose port
-EXPOSE 3000
+EXPOSE 8000
 
 # Health check
 HEALTHCHECK --interval=30s --timeout=3s \
-  CMD node healthcheck.js || exit 1
+  CMD python -c "import requests; requests.get('http://localhost:8000/health')" || exit 1
 
-# Start
-CMD ["node", "server.js"]
+# Start with uvicorn
+CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]
+```
+
+**requirements.txt:**
+```txt
+fastapi==0.104.1
+uvicorn[standard]==0.24.0
+pydantic==2.5.0
+pydantic-settings==2.1.0
+httpx==0.25.2
+openai==1.3.0  # if using OpenAI
+python-dotenv==1.0.0
+jsonschema==4.20.0  # for schema validation
 ```
 
 **Docker Compose example:**
@@ -159,34 +249,52 @@ services:
   api:
     build: .
     ports:
-      - "3000:3000"
+      - "8000:8000"
     environment:
-      - API_PORT=3000
+      - API_PORT=8000
       - DATABASE_URL=${DATABASE_URL}
     env_file:
       - .env
     restart: unless-stopped
+    depends_on:
+      - db
+      - redis
 
-  # Add other services (database, cache, etc.) as needed
+  db:
+    image: postgres:15
+    environment:
+      POSTGRES_DB: syncrade
+      POSTGRES_USER: syncrade
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+
+volumes:
+  postgres_data:
 ```
 
 ⸻
 
-### 2.3 Systemd Service (Linux)
+### 2.4 Systemd Service (Linux - Python)
 
 **Service file:** `/etc/systemd/system/syncrade-api.service`
 ```ini
 [Unit]
-Description=Syncrade API v1
+Description=Syncrade API v1 (Python)
 After=network.target
 
 [Service]
 Type=simple
 User=syncrade
 WorkingDirectory=/opt/syncrade-api
-Environment="NODE_ENV=production"
+Environment="PYTHONUNBUFFERED=1"
 EnvironmentFile=/opt/syncrade-api/.env
-ExecStart=/usr/bin/node server.js
+ExecStart=/opt/syncrade-api/venv/bin/uvicorn app.main:app --host 0.0.0.0 --port 8000
 Restart=always
 RestartSec=10
 
@@ -194,8 +302,14 @@ RestartSec=10
 WantedBy=multi-user.target
 ```
 
-**Commands:**
+**Setup with virtual environment:**
 ```bash
+# Create virtual environment
+python3.11 -m venv /opt/syncrade-api/venv
+source /opt/syncrade-api/venv/bin/activate
+pip install -r requirements.txt
+
+# Enable and start service
 sudo systemctl daemon-reload
 sudo systemctl enable syncrade-api
 sudo systemctl start syncrade-api
@@ -203,27 +317,73 @@ sudo systemctl start syncrade-api
 
 ⸻
 
+### 2.5 Cloud Deployment Options
+
+**Option A: Railway**
+- Connect GitHub repo
+- Auto-detect Python
+- Set environment variables in dashboard
+- Auto-deploy on push
+
+**Option B: Render**
+- Create new Web Service
+- Connect GitHub repo
+- Build command: `pip install -r requirements.txt`
+- Start command: `uvicorn app.main:app --host 0.0.0.0 --port $PORT`
+
+**Option C: Fly.io**
+```bash
+# Install flyctl
+curl -L https://fly.io/install.sh | sh
+
+# Launch app
+fly launch
+# Follow prompts, then:
+fly deploy
+```
+
+**Option D: AWS/GCP/Azure**
+- Use container services (ECS, Cloud Run, Container Apps)
+- Or serverless (Lambda, Cloud Functions) with API Gateway
+
+⸻
+
 ## 3. Frontend-Backend Integration
 
 ### 3.1 API Endpoint Configuration
 
-**Frontend environment variables:**
+**Next.js environment variables:**
 ```bash
-# .env.production
-VITE_API_BASE_URL=https://api.your-domain.com
-VITE_API_VERSION=v1
+# .env.local (development)
+NEXT_PUBLIC_API_BASE_URL=http://localhost:8000
+NEXT_PUBLIC_API_VERSION=v1
+
+# .env.production (production)
+NEXT_PUBLIC_API_BASE_URL=https://api.your-domain.com
+NEXT_PUBLIC_API_VERSION=v1
 ```
 
-**Update `vite.config.js` if needed:**
-```javascript
-export default defineConfig({
-  base: '/synctrade-static/',
-  plugins: [react()],
-  define: {
-    'import.meta.env.VITE_API_BASE_URL': JSON.stringify(process.env.VITE_API_BASE_URL),
+**In Next.js code:**
+```typescript
+// lib/api.ts
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || 'https://api.your-domain.com';
+const API_VERSION = process.env.NEXT_PUBLIC_API_VERSION || 'v1';
+
+export const apiClient = {
+  query: async (userInput: string) => {
+    const response = await fetch(`${API_BASE_URL}/${API_VERSION}/query`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ user_input: userInput }),
+    });
+    return response.json();
   },
-})
+};
 ```
+
+**Vercel environment variables:**
+- Add in Vercel dashboard: Settings → Environment Variables
+- Use `NEXT_PUBLIC_` prefix for client-side variables
 
 ⸻
 
@@ -236,13 +396,17 @@ If frontend and backend are on different domains:
 - Methods: `GET`, `POST`
 - Headers: `Content-Type`, `Authorization` (if used)
 
-**Example (Express.js):**
-```javascript
-app.use(cors({
-  origin: process.env.FRONTEND_URL,
-  methods: ['GET', 'POST'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
-}));
+**Example (FastAPI):**
+```python
+from fastapi.middleware.cors import CORSMiddleware
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[os.getenv("FRONTEND_URL", "https://your-domain.com")],
+    allow_credentials=True,
+    allow_methods=["GET", "POST"],
+    allow_headers=["Content-Type", "Authorization"],
+)
 ```
 
 ⸻
@@ -262,6 +426,24 @@ app.use(cors({
 **Health endpoint (recommended):**
 ```
 GET /health
+```
+
+**FastAPI health endpoint:**
+```python
+from fastapi import FastAPI
+from datetime import datetime
+
+@app.get("/health")
+async def health():
+    return {
+        "status": "healthy",
+        "version": "v1",
+        "timestamp": datetime.utcnow().isoformat() + "Z",
+        "checks": {
+            "database": "ok",  # check database connection
+            "data_sources": "ok"  # check RPC endpoints
+        }
+    }
 ```
 
 **Response:**
