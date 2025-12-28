@@ -231,8 +231,6 @@ This document tracks what's been completed vs what still needs to be done.
 
 ## 🔍 Documentation Gaps to Freeze
 
-### 1. Morpheus API Specification
-
 ### 1. Prompt Template Versioning
 
 **Current state:** LLM Usage Contract mentions versioning but no spec.
