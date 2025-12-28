@@ -233,16 +233,7 @@ This document tracks what's been completed vs what still needs to be done.
 
 ### 1. Morpheus API Specification
 
-**Current state:** Mentioned in `.env.example` but not documented.
-
-**Need to decide:**
-- What is Morpheus API? (LLM provider? Data source? Other?)
-- How is it used in the system?
-- What's the integration pattern?
-
-**Action:** Create `docs/morpheus-api-integration-v1.md` or remove from config.
-
-### 2. Prompt Template Versioning
+### 1. Prompt Template Versioning
 
 **Current state:** LLM Usage Contract mentions versioning but no spec.
 
