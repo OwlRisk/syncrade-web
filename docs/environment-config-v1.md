@@ -94,17 +94,31 @@ MORPHEUS_API_VERSION=v1  # if applicable
 # LLM Provider (if using)
 LLM_PROVIDER=openai  # or anthropic, etc.
 LLM_API_KEY=sk-...
-LLM_MODEL=gpt-4-turbo-preview
 LLM_MAX_TOKENS=2000
-LLM_TEMPERATURE=0.0  # deterministic
+LLM_TEMPERATURE=0.0  # deterministic (frozen by Model Binding Clause)
+
+# Canonical Model Set (from llm-usage-contract-v1.md Model Binding Clause)
+LLM_MODEL_PRIMARY_REASONER=gpt-5.2  # Complex intent parsing & structured rendering
+LLM_MODEL_LOW_COST_RENDERER=gpt-5-mini  # Cached / fallback rendering
+LLM_MODEL_NANO_ROUTER=gpt-5-nano  # High-throughput routing / classification
+
+# Model Versioning (for Determinism Guard)
+LLM_MODEL_VERSION_HASH=...  # Hash of model version for replay
+LLM_PROMPT_TEMPLATE_HASH=...  # Hash of prompt template for replay
 
 # LLM Budget (from llm-usage-contract-v1.md)
 LLM_MAX_CALLS_PER_REQUEST=2  # intent + render
 LLM_FALLBACK_ENABLED=true
 
+# Cost Discipline (from Model Binding Clause)
+LLM_PRIMARY_REASONER_BUDGET=...  # Budget per query for PRIMARY_REASONER
+LLM_AUTO_DEGRADE_TO_MINI=true  # Auto-degrade to gpt-5-mini on budget pressure
+
 # Python LLM client (if using OpenAI)
 OPENAI_API_KEY=${LLM_API_KEY}  # OpenAI Python SDK uses this
 ```
+<｜tool▁call▁begin｜>
+read_lints
 
 **See:** `docs/llm-usage-contract-v1.md`
 
