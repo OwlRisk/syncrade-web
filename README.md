@@ -1235,6 +1235,11 @@ These specs freeze how Syncrade behaves as a **system terminal**, so implementat
 - **Executable JSON Schemas (SSOT)**: `schemas/`
 - **Golden Fixtures (SSOT)**: `fixtures/`
 
+**Engineering & Deployment:**
+- **Deployment Guide v1**: `docs/deployment-guide-v1.md`
+- **Environment Configuration v1**: `docs/environment-config-v1.md`
+- **Development Setup Guide v1**: `docs/development-setup-v1.md`
+
 ---
 
 ## Tech Stack

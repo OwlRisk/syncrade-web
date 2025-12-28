@@ -1,0 +1,58 @@
+name: CI
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+      - run: npm ci
+      - run: npm run lint
+
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+      - run: npm ci
+      - run: npm run build
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist
+          path: dist/
+
+  validate-schemas:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Validate JSON Schemas
+        run: |
+          # Check schemas are valid JSON
+          for schema in schemas/*.schema.json; do
+            echo "Validating $schema"
+            npx ajv-cli validate -s "$schema" -d '{}' || exit 1
+          done
+      - name: Validate Fixtures
+        run: |
+          # Check fixtures are valid JSON and match schemas (if validator exists)
+          for fixture in fixtures/**/*.json; do
+            echo "Checking $fixture"
+            node -e "JSON.parse(require('fs').readFileSync('$fixture', 'utf8'))" || exit 1
+          done
+
