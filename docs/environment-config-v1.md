@@ -77,6 +77,11 @@ PRICE_API_URL=https://api.coingecko.com/v3
 # Onchain Data (if using indexer)
 INDEXER_API_URL=https://indexer.your-domain.com
 INDEXER_API_KEY=your_indexer_key
+
+# Morpheus API (if using)
+MORPHEUS_API_URL=https://api.morpheus.com
+MORPHEUS_API_KEY=your_morpheus_api_key
+MORPHEUS_API_VERSION=v1  # if applicable
 ```
 
 **See:** `docs/supported-sources-v1.md` for supported chains/domains.
