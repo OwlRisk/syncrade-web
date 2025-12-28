@@ -1,6 +1,37 @@
 # Syncrade Web
 
-Market Intelligence System - Website
+Market Intelligence System - Judgment Object Engine
+
+**Monorepo Structure:** Frontend (React/Vite) + Backend (Python/FastAPI)
+
+---
+
+## Project Structure
+
+```
+syncrade-web/
+  ├── frontend/          # React + Vite frontend
+  │   ├── src/
+  │   ├── public/
+  │   └── package.json
+  │
+  ├── backend/           # Python + FastAPI backend
+  │   ├── app/
+  │   ├── tests/
+  │   └── requirements.txt
+  │
+  ├── schemas/           # Shared JSON Schemas (SSOT)
+  ├── fixtures/          # Shared Golden Fixtures (SSOT)
+  ├── docs/              # Frozen Specifications (SSOT)
+  │
+  ├── docker-compose.yml  # Local development
+  └── README.md
+```
+
+**Quick Start:**
+- Frontend: `cd frontend && npm install && npm run dev`
+- Backend: `cd backend && pip install -r requirements.txt && uvicorn app.main:app --reload`
+- See `docs/development-setup-v1.md` for detailed setup
 
 ---
 
