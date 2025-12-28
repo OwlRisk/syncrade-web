@@ -1259,6 +1259,9 @@ These specs freeze how Syncrade behaves as a **system terminal**, so implementat
 - **RenderBlocks Schema v1**: `docs/render-blocks-schema-v1.md`
 - **Tool Registry / Data Domain Map v1**: `docs/tool-registry-v1.md`
 - **API Contract v1**: `docs/api-contract-v1.md`
+- **Prompt Templates v1**: `docs/prompt-templates-v1.md`
+- **Dataset Snapshot Specification v1**: `docs/dataset-snapshot-spec-v1.md`
+- **Authority Kernel Bring-Up Plan v1**: `docs/authority-kernel-bring-up-plan-v1.md`
 - **Error Codes Dictionary v1**: `docs/error-codes-v1.md`
 - **Observability & Audit Log Spec v1**: `docs/observability-spec-v1.md`
 - **Privacy & Data Retention v1**: `docs/privacy-retention-v1.md`
