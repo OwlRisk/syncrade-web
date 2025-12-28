@@ -1278,8 +1278,9 @@ These specs freeze how Syncrade behaves as a **system terminal**, so implementat
 ## Tech Stack
 
 **Frontend:**
-- **Next.js** (recommended) - Framework
-- **Vercel** - Deployment platform
+- **Next.js 15** - Framework (App Router)
+- **React 19** - UI library
+- **Vercel** - Deployment platform (recommended)
 
 **Backend:**
 - **Python 3.11+** - Language
@@ -1288,20 +1289,36 @@ These specs freeze how Syncrade behaves as a **system terminal**, so implementat
 
 ## Development
 
+**Frontend:**
 ```bash
+cd frontend
 npm install
 npm run dev
 ```
 
+**Backend:**
+```bash
+cd backend
+python3.11 -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+uvicorn app.main:app --reload
+```
+
 ## Build
 
+**Frontend:**
 ```bash
+cd frontend
 npm run build
-npm run preview
+```
+
+**Backend:**
+```bash
+cd backend
+# Production build handled by Docker or deployment platform
 ```
 
 ## Deploy
 
-```bash
-npm run deploy
-```
+See `docs/deployment-guide-v1.md` for detailed deployment instructions.
