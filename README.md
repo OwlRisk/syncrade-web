@@ -1240,6 +1240,7 @@ These specs freeze how Syncrade behaves as a **system terminal**, so implementat
 - **Environment Configuration v1**: `docs/environment-config-v1.md`
 - **Development Setup Guide v1**: `docs/development-setup-v1.md`
 - **Python Backend Structure v1**: `docs/python-backend-structure-v1.md`
+- **Backend Implementation Recommendations v1**: `docs/backend-implementation-recommendations-v1.md`
 
 ---
 
