@@ -62,7 +62,96 @@ Allowed fallback behaviors:
 
 Forbidden fallback behaviors:
 
-- emitting free-form “judgment text” without a validated object
+- emitting free-form "judgment text" without a validated object
 - asking multi-round questions to compensate
+
+⸻
+
+## 6. Canonical Model Set (Legal LLM Set)
+
+**Status: Frozen — Constitutional Control Layer**
+
+Syncrade recognizes only the following model classes as legal system narrators:
+
+| Class | Purpose | Legal Models |
+|-------|---------|--------------|
+| PRIMARY_REASONER | Complex intent parsing & structured rendering | gpt-5.2 |
+| LOW_COST_RENDERER | Cached / fallback rendering | gpt-5-mini |
+| NANO_ROUTER | High-throughput routing / classification | gpt-5-nano |
+
+**All other models are illegal for production judgment rendering.**
+
+Any attempt to introduce a new model class requires:
+- protocol version bump
+- migration doc
+- replay compatibility proof
+
+⸻
+
+## 7. Model Role Separation Law
+
+| Role | Allowed Model | Forbidden |
+|------|---------------|-----------|
+| Planner / Router | gpt-5.2 / gpt-5-nano | Any open-weight LLM |
+| Judgment Rendering | gpt-5.2 / gpt-5-mini | Community / uncensored / experimental models |
+| Explanation Fallback | gpt-5-mini | All others |
+
+**Open models may be used only in R&D sandboxes, never in canonical judgment paths.**
+
+⸻
+
+## 8. Determinism Guard
+
+All model calls must be wrapped with:
+
+- `model_version_hash`
+- `prompt_template_hash`
+- `temperature = 0`
+
+so that:
+
+**Same object → same rendered explanation → replayable**
+
+⸻
+
+## 9. Model Switching Governance
+
+**Model switching is NOT a config change.  
+It is a constitutional event.**
+
+Switching PRIMARY_REASONER requires:
+- new Authority Protocol version
+- replay audit pass
+- golden-fixture regression
+- migration doc
+
+⸻
+
+## 10. Cost Discipline Law
+
+- All PRIMARY_REASONER calls are budgeted & metered
+- Cached replay renders must never re-invoke PRIMARY_REASONER
+- Rendering must auto-degrade to gpt-5-mini when budget pressure occurs
+- Hard cap per query is enforced at Router level
+
+⸻
+
+## 11. Forbidden Model Classes
+
+| Forbidden | Reason |
+|-----------|--------|
+| uncensored / jailbreak models | Non-auditable |
+| community tuned LLMs | Non-deterministic |
+| local ad-hoc LLMs | Replay impossible |
+| vendor-rotating LLMs | Authority instability |
+
+⸻
+
+## 12. Frozen Clause
+
+**Syncrade does not "use models".  
+Syncrade binds authority to a canonical reasoning engine.**
+
+**Model drift = Authority drift = System invalid.**
 
 
