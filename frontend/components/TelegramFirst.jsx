@@ -1,4 +1,4 @@
-import Icon from './Icon';
+import Icon from '@/components/Icon';
 
 const TelegramFirst = () => (
   <section id="bot">

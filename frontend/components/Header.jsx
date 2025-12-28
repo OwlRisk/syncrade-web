@@ -1,11 +1,11 @@
-import { Link } from 'react-router-dom';
-import Icon from './Icon';
+import Link from 'next/link'
+import Icon from '@/components/Icon'
 
 const Header = () => (
   <header>
     <div className="container nav">
       <div className="brand">
-        <Link to="/" aria-label="Syncrade home" className="brand-link">
+        <Link href="/" aria-label="Syncrade home" className="brand-link">
           <div className="logo" aria-hidden="true"></div>
           Syncrade
         </Link>
@@ -25,6 +25,6 @@ const Header = () => (
       </a>
     </div>
   </header>
-);
+)
 
-export default Header;
+export default Header

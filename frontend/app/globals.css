@@ -369,4 +369,8 @@
     #ratings,
     #bot {
       scroll-margin-top: 64px;
-    }
+    }.brand-link {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}

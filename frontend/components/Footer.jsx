@@ -1,11 +1,16 @@
-import { useEffect } from 'react';
-import { Link } from 'react-router-dom';
+'use client'
+
+import { useEffect } from 'react'
+import Link from 'next/link'
 
 const Footer = () => {
   useEffect(() => {
     // Dynamic year
-    document.getElementById('year').textContent = new Date().getFullYear();
-  }, []);
+    const yearEl = document.getElementById('year')
+    if (yearEl) {
+      yearEl.textContent = new Date().getFullYear()
+    }
+  }, [])
 
   return (
     <footer className="footer">
@@ -43,9 +48,9 @@ const Footer = () => {
 
         <div className="f-col">
           <h4>Legal</h4>
-          <Link to="/terms">Terms</Link>
-          <Link to="/privacy">Privacy</Link>
-          <Link to="/disclaimer">Disclaimer</Link>
+          <Link href="/terms">Terms</Link>
+          <Link href="/privacy">Privacy</Link>
+          <Link href="/disclaimer">Disclaimer</Link>
         </div>
       </div>
 
@@ -56,7 +61,7 @@ const Footer = () => {
         <p style={{ margin: '8px 0 0' }}>© <span id="year"></span> Syncrade. All rights reserved.</p>
       </div>
     </footer>
-  );
-};
+  )
+}
 
-export default Footer;
+export default Footer

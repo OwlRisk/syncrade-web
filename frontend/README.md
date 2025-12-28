@@ -1,6 +1,6 @@
 # Syncrade Frontend
 
-React + Vite frontend for Syncrade Market Intelligence System.
+Next.js frontend for Syncrade Market Intelligence System.
 
 ⸻
 
@@ -16,9 +16,11 @@ npm run dev
 # Build for production
 npm run build
 
-# Preview production build
-npm run preview
+# Start production server
+npm start
 ```
+
+Frontend runs on `http://localhost:3000` by default.
 
 ⸻
 
@@ -26,23 +28,43 @@ npm run preview
 
 ```
 frontend/
-  ├── src/
-  │   ├── components/     # React components
-  │   ├── pages/          # Page components
-  │   ├── App.jsx         # Main app component
-  │   └── main.jsx        # Entry point
-  ├── public/             # Static assets
-  ├── package.json
-  └── vite.config.js
+  ├── app/                    # Next.js App Router
+  │   ├── layout.jsx          # Root layout
+  │   ├── page.jsx            # Home page (/)
+  │   ├── terms/              # /terms route
+  │   ├── privacy/            # /privacy route
+  │   ├── disclaimer/         # /disclaimer route
+  │   └── globals.css          # Global styles
+  ├── components/             # React components
+  │   ├── Header.jsx
+  │   ├── Footer.jsx
+  │   ├── Hero.jsx
+  │   └── ...
+  ├── next.config.js          # Next.js configuration
+  ├── jsconfig.json           # Path aliases (@/)
+  └── package.json
 ```
+
+⸻
+
+## Next.js Features
+
+- **App Router**: File-based routing (Next.js 13+)
+- **Server Components**: Default (no 'use client' needed)
+- **Client Components**: Use 'use client' directive when needed
+- **Path Aliases**: `@/` points to root directory
 
 ⸻
 
 ## Development
 
-Frontend runs on `http://localhost:5173` by default.
+**Local Development:**
+```bash
+npm run dev
+```
 
-Backend API should be running on `http://localhost:8000`.
+**Backend API:**
+Backend should be running on `http://localhost:8000`
 
 See `../docs/development-setup-v1.md` for full setup instructions.
 
@@ -59,9 +81,22 @@ See `../docs/api-contract-v1.md` for API specification.
 
 ⸻
 
+## Deployment
+
+### Vercel (Recommended)
+
+1. Connect repository to Vercel
+2. Vercel auto-detects Next.js
+3. Add environment variables:
+   - `NEXT_PUBLIC_API_BASE_URL`
+   - `NEXT_PUBLIC_API_VERSION`
+
+See `../docs/deployment-guide-v1.md` for details.
+
+⸻
+
 ## See Also
 
 - `../docs/` - Frozen specifications
 - `../schemas/` - JSON Schemas (SSOT)
 - `../backend/` - Python backend API
-
