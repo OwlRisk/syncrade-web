@@ -1262,6 +1262,7 @@ These specs freeze how Syncrade behaves as a **system terminal**, so implementat
 - **Prompt Templates v1**: `docs/prompt-templates-v1.md`
 - **Dataset Snapshot Specification v1**: `docs/dataset-snapshot-spec-v1.md`
 - **Authority Kernel Bring-Up Plan v1**: `docs/authority-kernel-bring-up-plan-v1.md`
+- **Kernel Bring-Up Spec v1**: `docs/kernel-bring-up-spec-v1.md` (System Ignition Specification)
 - **Error Codes Dictionary v1**: `docs/error-codes-v1.md`
 - **Observability & Audit Log Spec v1**: `docs/observability-spec-v1.md`
 - **Privacy & Data Retention v1**: `docs/privacy-retention-v1.md`
