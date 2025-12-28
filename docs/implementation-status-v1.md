@@ -144,10 +144,6 @@ This document tracks what's been completed vs what still needs to be done.
 
 ### 9. Documentation Gaps (Low Priority)
 
-- [ ] **Morpheus API integration**: Purpose and usage not fully documented
-  - Currently in `.env.example` but no spec
-  - Need to clarify: Is it an LLM provider? Data source? Other?
-  
 - [ ] **API examples**: Add example requests/responses to `docs/api-contract-v1.md`
 - [ ] **Error handling examples**: Add examples to `docs/error-codes-v1.md`
 - [ ] **Deployment runbook**: Step-by-step production deployment guide

@@ -18,10 +18,6 @@ class Settings(BaseSettings):
     base_rpc_url: Optional[str] = None
     price_api_key: Optional[str] = None
     
-    # Morpheus API
-    morpheus_api_url: Optional[str] = None
-    morpheus_api_key: Optional[str] = None
-    
     # LLM
     openai_api_key: Optional[str] = None
     anthropic_api_key: Optional[str] = None
