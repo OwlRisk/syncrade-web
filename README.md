@@ -2,7 +2,7 @@
 
 Market Intelligence System - Judgment Object Engine
 
-**Monorepo Structure:** Frontend (React/Vite) + Backend (Python/FastAPI)
+**Monorepo Structure:** Frontend (Next.js) + Backend (Python/FastAPI)
 
 ---
 
@@ -10,9 +10,9 @@ Market Intelligence System - Judgment Object Engine
 
 ```
 syncrade-web/
-  ├── frontend/          # React + Vite frontend
-  │   ├── src/
-  │   ├── public/
+  ├── frontend/          # Next.js frontend
+  │   ├── app/
+  │   ├── components/
   │   └── package.json
   │
   ├── backend/           # Python + FastAPI backend
@@ -294,48 +294,48 @@ Frozen clause:
 
 **The Constitutional Protocol of a Market Judgment System**
 
-本协议定义 Syncrade 作为“市场判断系统（Market Judgment System）”的根本运行法则、LLM 使用边界、责任模型与不可突破的系统约束。  
-这是系统宪法，不是工程文档。
+This protocol defines the fundamental operating principles, LLM usage boundaries, liability model, and unbreakable system constraints of Syncrade as a "Market Judgment System."  
+This is the system constitution, not an engineering document.
 
 ---
 
-## Article I. System Class（系统定位）
+## Article I. System Class
 
 Syncrade is formally defined as:
 
 **A Market Judgment System**  
-一个用于解释、评估、约束与呈现市场行为含义的判断系统。
+A system for interpreting, evaluating, constraining, and presenting the meaning of market behavior.
 
 It is NOT:
-- Trading tool / execution tool（交易工具/执行工具）
-- Recommendation system（推荐系统）
-- Investment advisory system（投顾系统）
-- Signal copy-trading tool（信号跟单工具）
-- Prediction system（预测系统）
+- Trading tool / execution tool
+- Recommendation system
+- Investment advisory system
+- Signal copy-trading tool
+- Prediction system
 
 It IS:
-- A system that provides a **Judgment Reference Structure**（判断参考结构）
-- A cognitive order system that prioritizes **restraint + replayability + auditability**（克制 + 可回放 + 可审计）
+- A system that provides a **Judgment Reference Structure**
+- A cognitive order system that prioritizes **restraint + replayability + auditability**
 
 ---
 
-## Article II. Authority Source（判断权力来源）
+## Article II. Authority Source
 
-Syncrade’s authority does NOT come from:
-- Prediction accuracy（预测准确率）
-- Profit display（收益展示）
-- Celebrity endorsement（名人背书）
-- Community trust（社群信任）
+Syncrade's authority does NOT come from:
+- Prediction accuracy
+- Profit display
+- Celebrity endorsement
+- Community trust
 
 It comes from:
 
 | Authority Pillar | Meaning |
 |---|---|
-| Explainability（可解释性） | Every conclusion decomposes into explicit reasons |
-| Replayability（可复现性） | Every judgment can be replayed and reproduced |
-| Constraint（约束性） | The system self-limits instead of maximizing influence |
-| Restraint（克制性） | No action commands; no “do X now” outputs |
-| Stability（稳定性） | Refuses emotion, marketing, and inducement |
+| Explainability | Every conclusion decomposes into explicit reasons |
+| Replayability | Every judgment can be replayed and reproduced |
+| Constraint | The system self-limits instead of maximizing influence |
+| Restraint | No action commands; no "do X now" outputs |
+| Stability | Refuses emotion, marketing, and inducement |
 
 Frozen clause:
 
@@ -343,9 +343,9 @@ Frozen clause:
 
 ---
 
-## Article III. The LLM Boundary（LLM 的宪法级定位）
+## Article III. The LLM Boundary
 
-In Syncrade, the LLM is not “intelligence.” It is a **Language–Cognition Translator**.
+In Syncrade, the LLM is not "intelligence." It is a **Language–Cognition Translator**.
 
 The LLM is ONLY allowed to do:
 - **Language → Intent**: translate user language into a structured system intent
@@ -353,11 +353,11 @@ The LLM is ONLY allowed to do:
 - **Structure → Explanation**: render already-produced structured results into human-readable text
 
 The LLM is NEVER allowed to:
-- Make final decisions / produce judgment truth（做结论决策/生成系统真理）
-- Generate probability / confidence values（生成概率/置信度）
-- Recommend actions, trades, or “what you should do”（行为推荐/交易建议/行动指令）
-- Choose defaults that affect meaning（决定影响含义的默认值）
-- Decide permissions / compliance / risk（权限判断/合规判断/风险判断）
+- Make final decisions / produce judgment truth
+- Generate probability / confidence values
+- Recommend actions, trades, or "what you should do"
+- Choose defaults that affect meaning
+- Decide permissions / compliance / risk
 
 Frozen clause:
 
@@ -366,7 +366,7 @@ Frozen clause:
 
 ---
 
-## Article IV. Judgment Generation Pipeline（判断生成结构）
+## Article IV. Judgment Generation Pipeline
 
 All Syncrade judgments MUST come from this closed loop:
 
@@ -385,7 +385,7 @@ Rule: Any user-visible conclusion must map back to fields in the `Judgment Objec
 
 ---
 
-## Article V. Judgment Object（判断对象规范 / 唯一合法输出）
+## Article V. Judgment Object (Canonical Output Specification)
 
 Any judgment shown to users MUST be a structured object. Free-form textual “conclusions” are illegal.
 
@@ -414,20 +414,20 @@ Notes:
 
 ---
 
-## Article VI. Liability Boundary（系统责任边界）
+## Article VI. Liability Boundary
 
 Syncrade may output:
-- **What is happening**（正在发生什么）
-- **What has changed**（发生了什么变化）
-- **What this may imply (conditionally)**（可能意味着什么：必须是条件化推导）
-- **What is uncertain**（哪里不确定：必须给出不确定性的来源）
+- **What is happening**
+- **What has changed**
+- **What this may imply (conditionally)** (must be conditional inference)
+- **What is uncertain** (must provide the source of uncertainty)
 
 Syncrade must NOT output:
-- **What you should do**（你应该怎么做）
-- **Buy / sell instructions**（买卖指令）
-- **What will happen**（将会发生什么：确定性预测）
-- **Profit guarantees**（收益承诺）
-- **Personalized investment advice**（个性化投资建议/投顾）
+- **What you should do**
+- **Buy / sell instructions**
+- **What will happen** (deterministic predictions)
+- **Profit guarantees**
+- **Personalized investment advice**
 
 Conditional reasoning rule:
 
@@ -435,7 +435,7 @@ Conditional reasoning rule:
 
 ---
 
-## Article VII. Hard Red Lines（不可突破红线）
+## Article VII. Hard Red Lines
 
 | Red Line | Reason |
 |---|---|
@@ -447,7 +447,7 @@ Conditional reasoning rule:
 
 ---
 
-## Article VIII. Refusal & Safe Completion（越界请求处理）
+## Article VIII. Refusal & Safe Completion
 
 When a user requests prohibited output, Syncrade MUST:
 - Refuse the prohibited portion clearly (no euphemisms)
@@ -460,7 +460,7 @@ Frozen clause:
 
 ---
 
-## Article IX. Governance & Versioning（治理与版本冻结）
+## Article IX. Governance & Versioning
 
 Any change to rules that affect judgment meaning MUST:
 - Produce a new version (`Authority Protocol` version, `rule_version`, `scoring_version`)
@@ -476,13 +476,13 @@ Frozen clause:
 
 # Syncrade Intelligence Object Spec v1
 
-**现在整个系统只差一个东西：**
+**The system is missing one critical piece:**
 
-**你要让"判断"从语言，变成"对象"。**
+**You must transform "judgment" from language into an "object."**
 
-也就是：  
-Syncrade 不再是"给你一句话"，  
-而是：给你一个"可以被存档、被引用、被 replay、被审计"的 Intelligence Object。
+That is:  
+Syncrade no longer "gives you a sentence,"  
+but rather: gives you an Intelligence Object that can be archived, referenced, replayed, and audited.
 
 ⸻
 
@@ -639,45 +639,45 @@ This is why no landing page, no competitor, no UI can replicate you.**
 
 ⸻
 
-## 0. 核心宣言
+## 0. Core Declaration
 
-**Syncrade 不输出"内容"。  
-Syncrade 只输出 Intelligence Objects。**
+**Syncrade does not output "content."  
+Syncrade only outputs Intelligence Objects.**
 
-所有页面、信号、insights、判断、解释、历史、复现，  
-都是 Intelligence Object 的不同投影形态。
-
-⸻
-
-## 1. Intelligence Object 定义
-
-**Intelligence Object = 一个可复现的判断原子**
-
-不是一句话。  
-不是一段解释。  
-不是一个信号。
-
-而是一个 **可被 replay / audit / trace 的判断实体**。
+All pages, signals, insights, judgments, explanations, history, and replays  
+are different projection forms of Intelligence Objects.
 
 ⸻
 
-## 2. Intelligence Object 抽象结构
+## 1. Intelligence Object Definition
+
+**Intelligence Object = A replayable judgment atom**
+
+Not a sentence.  
+Not an explanation.  
+Not a signal.
+
+But a **judgment entity that can be replayed / audited / traced**.
+
+⸻
+
+## 2. Intelligence Object Abstract Structure
 
 ```
 IntelligenceObject := {
-    id,                 # 全局唯一判断ID
+    id,                 # Globally unique judgment ID
     type,               # OBSERVATION / SIGNAL / INSIGHT / RISK / BEHAVIOR
-    subject,            # 判断对象（wallet / token / market / cohort）
-    window,             # 数据时间窗口
-    model,              # 行为模型 / 推理模型
-    inference,          # 推断结论（结构化）
-    confidence,         # 概率置信
-    evidence,           # 证据集
-    explanation,        # 人类可读解释
-    created_at,         # 生成时间
-    expires_at,         # 失效时间
-    replay_hash,        # 可复现哈希
-    safety_notice       # 合规说明
+    subject,            # Judgment target (wallet / token / market / cohort)
+    window,             # Data time window
+    model,              # Behavior model / inference model
+    inference,          # Inference conclusion (structured)
+    confidence,         # Probability confidence
+    evidence,           # Evidence set
+    explanation,        # Human-readable explanation
+    created_at,         # Generation timestamp
+    expires_at,         # Expiration timestamp
+    replay_hash,        # Replay hash
+    safety_notice       # Compliance notice
 }
 ```
 
@@ -687,26 +687,26 @@ IntelligenceObject := {
 
 | Type | Meaning |
 |------|---------|
-| OBSERVATION | 事实观察 |
-| SIGNAL | 市场级智能判断 |
-| INSIGHT | 稳定行为变化总结 |
-| RISK | 风险异常判断 |
-| BEHAVIOR | 行为画像结论 |
+| OBSERVATION | Factual observation |
+| SIGNAL | Market-level intelligent judgment |
+| INSIGHT | Stable behavioral change summary |
+| RISK | Risk anomaly judgment |
+| BEHAVIOR | Behavior profile conclusion |
 
-**Syncrade 的一切输出只能属于这 5 种。**
+**All Syncrade outputs must belong to these 5 types.**
 
 ⸻
 
 ## 4. Judgment Atomicity Law
 
-每一个 Intelligence Object：
-- 只能表达 **一个判断**
-- 不能混合多种结论
-- 不能混合多个建议
-- 不能携带操作指令
-- 不能是"模糊表达"
+Every Intelligence Object:
+- Can only express **one judgment**
+- Cannot mix multiple conclusions
+- Cannot mix multiple recommendations
+- Cannot carry operational instructions
+- Cannot be "ambiguous expression"
 
-**这是你系统可信的基础。**
+**This is the foundation of your system's trustworthiness.**
 
 ⸻
 
@@ -720,7 +720,7 @@ Given the same:
 
 **The Intelligence Object MUST be identical.**
 
-否则 → 不是 Syncrade Judgment。
+Otherwise → it is not a Syncrade Judgment.
 
 ⸻
 
@@ -732,7 +732,7 @@ Given the same:
 | 0.40 – 0.69 | Medium |
 | 0.70 – 1.00 | Strong |
 
-**置信度是概率，不是"信心"。**
+**Confidence is probability, not "confidence."**
 
 ⸻
 
@@ -749,17 +749,17 @@ Evidence := {
 }
 ```
 
-**所有判断必须引用 Evidence。**
+**All judgments must reference Evidence.**
 
-**没有 Evidence → 不允许生成。**
+**No Evidence → generation not allowed.**
 
 ⸻
 
 ## 8. Explanation Law
 
-**Explanation 是 Evidence 的自然语言投影，不允许新增事实。**
+**Explanation is the natural language projection of Evidence; no new facts are allowed.**
 
-**LLM 只能在这一层工作。**
+**LLM can only work at this layer.**
 
 ⸻
 
@@ -769,7 +769,7 @@ Evidence := {
 hash = SHA256(subject + window + model + evidence)
 ```
 
-**如果 hash 不一致 → Judgment 非法。**
+**If hash is inconsistent → Judgment is invalid.**
 
 ⸻
 
@@ -783,7 +783,7 @@ hash = SHA256(subject + window + model + evidence)
 | Directional trade language |
 | Behavioral coercion |
 
-**所有 Intelligence Objects 都必须携带：**
+**All Intelligence Objects must carry:**
 
 ⚠️ **Informational intelligence only. Not financial advice.**
 
