@@ -71,17 +71,20 @@ Three files frozen:
 
 **Output:**
 - **ONE** Intelligence Object
-- Type: `BEHAVIOR`
-- Judgment: "Wallet is showing accumulation / distribution / neutral behavior"
+- Type: `OBSERVATION` (frozen per `docs/kernel-bring-up-spec-v1.md`)
+- Judgment: Observable facts about wallet behavior
 - Window: `last 30d` (fixed)
 
 **Hard rules:**
-- Only ONE judgment type allowed in v1
+- Only ONE judgment type allowed in v1: `OBSERVATION` only
 - Only ONE model/pipeline version
 - Only ONE chain (Base)
 - Only ONE window (30d)
+- Only mock data sources (no real chains)
 
 **This is the minimum viable Authority Kernel.**
+
+**See:** `docs/kernel-bring-up-spec-v1.md` for complete Bring-Up specification.
 
 ⸻
 
@@ -224,49 +227,30 @@ def aggregate_observations(
 
 ⸻
 
-### Step 4: Behavior Vector
+### Step 4: Observation Pipeline
 
-**File:** `backend/app/services/behavior_vector.py`
+**File:** `backend/app/services/pipeline.py`
 
 **Function:**
 ```python
-def compute_behavior_vector(
-    observations: dict
+def run_observation_pipeline(
+    observations: dict,
+    baseline: dict
 ) -> dict:
     """
-    Compute behavior pattern from observations.
-    Returns: { "pattern": "accumulation" | "distribution" | "neutral", "magnitude": "slight" | "noticeable" | "significant" }
+    Run deterministic observation pipeline.
+    Returns: { "observation": str, "metrics": dict, "uncertainty": float }
     """
 ```
 
 **v1 rules (deterministic):**
-- If `net_inflow > 0.5` → `accumulation`
-- If `net_inflow < -0.5` → `distribution`
-- Otherwise → `neutral`
-- `magnitude` based on absolute value of `net_inflow`
-
-⸻
-
-### Step 5: Inference Detection
-
-**File:** `backend/app/services/inference.py`
-
-**Function:**
-```python
-def detect_inference(
-    behavior_vector: dict,
-    observations: dict
-) -> dict:
-    """
-    Detect inference from behavior vector.
-    Returns: { "behavior_pattern": str, "magnitude": str, "uncertainty": float }
-    """
-```
-
-**v1:**
-- Pass through behavior pattern
-- Compute uncertainty: `0.2 + (1 - abs(net_inflow)) * 0.3` (clamped to [0, 1])
+- Aggregate metrics from evidence
+- Compare to baseline (historical average)
+- Generate observation inference (factual, not predictive)
+- Compute uncertainty: `0.2 + (1 - data_quality_score) * 0.3` (clamped to [0, 1])
 - `uncertainty_method`: `RULE_CALIBRATED`
+
+**Note:** v1 only outputs OBSERVATION type (per `docs/kernel-bring-up-spec-v1.md`).
 
 ⸻
 
@@ -284,18 +268,20 @@ def compose_judgment(
     dataset_snapshot: str
 ) -> dict:
     """
-    Compose BEHAVIOR Intelligence Object.
+    Compose OBSERVATION Intelligence Object.
     Returns: IntelligenceObjectV1 (dict)
     """
 ```
 
 **Must generate:**
-- `id`: `syncrade:behavior:${chain}:${date}:${address_short}:${window}:${index}`
-- `type`: `BEHAVIOR`
-- `inference`: From inference record
-- `uncertainty`: From inference
+- `id`: `syncrade:observation:${chain}:${date}:${address_short}:${window}:${index}`
+- `type`: `OBSERVATION` (frozen per Bring-Up spec)
+- `inference`: From observation pipeline
+- `uncertainty`: From pipeline
 - `replay`: Generate `replay_key` and `replay_inputs`
 - All required fields per schema
+
+**Note:** v1 only composes OBSERVATION type (per `docs/kernel-bring-up-spec-v1.md`).
 
 ⸻
 
@@ -345,7 +331,7 @@ async def render_objects(
     """
 ```
 
-**v1 prompt:** `renderer/behavior_object_v1.0.0.txt`
+**v1 prompt:** `renderer/observation_object_v1.0.0.txt` (for OBSERVATION type)
 
 **Fallback:** Template substitution (no LLM)
 
@@ -373,37 +359,41 @@ async def query(request: QueryRequest):
 **Authority Kernel v1 is "up" when:**
 
 1. ✅ User inputs wallet address
-2. ✅ System produces ONE valid BEHAVIOR Intelligence Object
+2. ✅ System produces ONE valid OBSERVATION Intelligence Object
 3. ✅ Object passes `io-validator`
 4. ✅ Object has valid `replay_key`
 5. ✅ `GET /v1/replay/:replay_key` returns byte-identical object
-6. ✅ Frontend displays object correctly
-7. ✅ All fields match schema
-8. ✅ All compliance rules satisfied
+6. ✅ Replay hash is 100% consistent across 100 executions
+7. ✅ Frontend displays object correctly
+8. ✅ All fields match schema
+9. ✅ All compliance rules satisfied
+
+**See:** `docs/kernel-bring-up-spec-v1.md` for complete success criteria.
 
 **Not required:**
-- ❌ Multiple judgment types
-- ❌ Multiple chains
-- ❌ Multiple windows
+- ❌ Multiple judgment types (OBSERVATION only)
+- ❌ Multiple chains (Base only)
+- ❌ Multiple windows (30d only)
 - ❌ Complex intelligence
-- ❌ Real on-chain data (mock is OK for v1)
+- ❌ Real on-chain data (mock only, per Bring-Up spec)
+- ❌ BEHAVIOR / SIGNAL / RISK / INSIGHT types (forbidden in v1)
 
 ⸻
 
 ## Implementation Order (Frozen)
 
 **Week 1:**
-1. Implement `utils/subject.py` (normalize wallet)
-2. Implement `services/data_source.py` (mock data)
-3. Implement `services/observation.py` (aggregate)
-4. Implement `services/behavior_vector.py` (compute pattern)
-5. Implement `services/inference.py` (detect inference)
+1. Implement `services/intent_parser.py` (LLM intent parsing)
+2. Implement `utils/subject.py` (normalize wallet)
+3. Implement `utils/window.py` (resolve window)
+4. Implement `services/data_source.py` (mock data only)
+5. Implement `services/pipeline.py` (observation pipeline)
 
 **Week 2:**
-6. Implement `services/judgment_composer.py` (compose object)
+6. Implement `services/judgment_composer.py` (compose OBSERVATION object)
 7. Wire up `routes/query.py` (full pipeline)
 8. Test with validators
-9. Test replay consistency
+9. Test replay consistency (100 executions, 100% identical)
 10. Implement `services/renderer.py` (LLM + fallback)
 
 **Week 3:**

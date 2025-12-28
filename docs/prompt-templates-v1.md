@@ -70,11 +70,11 @@ Hash: SHA256(canonical)
 
 ## 4. Authority Kernel v1 Prompts (Frozen)
 
-### 4.1 Renderer Prompt (BEHAVIOR Object)
+### 4.1 Renderer Prompt (OBSERVATION Object)
 
-**Template:** `renderer/behavior_object_v1.0.0.txt`
+**Template:** `renderer/observation_object_v1.0.0.txt`
 
-**Purpose:** Convert BEHAVIOR Intelligence Object → RenderBlocks JSON
+**Purpose:** Convert OBSERVATION Intelligence Object → RenderBlocks JSON
 
 **Output Schema:** `schemas/render-blocks-v1.schema.json`
 
@@ -119,7 +119,7 @@ Output RenderBlocks JSON:
 
 **When LLM is unavailable or prompt invalid:**
 
-**Behavior Object → RenderBlocks fallback:**
+**Observation Object → RenderBlocks fallback:**
 ```json
 {
   "blocks": [
@@ -170,10 +170,10 @@ Output RenderBlocks JSON:
 **v1 only uses ONE prompt:**
 
 - **Role:** `renderer`
-- **Template:** `behavior_object_v1.0.0`
-- **Purpose:** Render BEHAVIOR Intelligence Objects only
+- **Template:** `observation_object_v1.0.0`
+- **Purpose:** Render OBSERVATION Intelligence Objects only
 
 **No other prompts in v1.**
 
-**Intent parsing in v1:** Deterministic (no LLM), see `docs/window-subject-resolution-rules-v1.md`.
+**Intent parsing in v1:** LLM allowed (per `docs/kernel-bring-up-spec-v1.md`), but must output structured JSON only.
 
